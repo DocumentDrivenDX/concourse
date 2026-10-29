@@ -1,0 +1,398 @@
+{
+  "date": "2026-10-29",
+  "claim_scope": "Documentation structure, local links, IDs and planned trace coverage only; no runtime/native/provider/deployment acceptance",
+  "catalog": "installed HELIX 0.19.1 workflows",
+  "validator_sha256": "be05c55523621adb543f444b0bd71cb949df732f312a164d1c99179d00651d4d",
+  "validator_command": "<Python with PyYAML> <installed HELIX>/skills/helix/scripts/validate-instance.py <artifact> --catalog <installed HELIX>/workflows --format json",
+  "environment": {
+    "python": "3.13.16",
+    "PyYAML": "6.0.3"
+  },
+  "limits": [
+    "Catalog validator checks declared structural rules; semantic quality requires review.",
+    "Local link/ID/FR/story checks are scoped bootstrap checks, not a reusable runtime test suite.",
+    "No application tests, provider journeys, native store execution or cloud deployment were performed."
+  ],
+  "traceability": {
+    "scope": "Documentation structure, local links, IDs and planned trace coverage only; no runtime/native/provider/deployment acceptance",
+    "date": "2026-10-29",
+    "artifact_count": 19,
+    "functional_requirements": 8,
+    "features": 6,
+    "stories": 8,
+    "planned_acceptance_criteria": 36,
+    "coverage": {
+      "FR-1": {
+        "features": [
+          "FEAT-001-protected-publishing.md"
+        ],
+        "stories": [
+          "US-001-protect-a-publication.md"
+        ]
+      },
+      "FR-2": {
+        "features": [
+          "FEAT-002-identity-membership.md"
+        ],
+        "stories": [
+          "US-002-sign-in.md"
+        ]
+      },
+      "FR-3": {
+        "features": [
+          "FEAT-002-identity-membership.md"
+        ],
+        "stories": [
+          "US-003-manage-membership.md"
+        ]
+      },
+      "FR-4": {
+        "features": [
+          "FEAT-003-resource-identity.md"
+        ],
+        "stories": [
+          "US-004-follow-resource-context.md"
+        ]
+      },
+      "FR-5": {
+        "features": [
+          "FEAT-004-discussion.md"
+        ],
+        "stories": [
+          "US-005-comment-and-reply.md"
+        ]
+      },
+      "FR-6": {
+        "features": [
+          "FEAT-004-discussion.md"
+        ],
+        "stories": [
+          "US-006-moderate-discussion.md"
+        ]
+      },
+      "FR-7": {
+        "features": [
+          "FEAT-005-site-adoption.md"
+        ],
+        "stories": [
+          "US-007-adopt-in-two-sites.md"
+        ]
+      },
+      "FR-8": {
+        "features": [
+          "FEAT-006-structured-actions.md"
+        ],
+        "stories": [
+          "US-008-perform-structured-action.md"
+        ]
+      }
+    },
+    "issues": []
+  },
+  "artifacts": [
+    {
+      "path": "docs/helix/00-discover/competitive-analysis.md",
+      "sha256": "847d5d9abcf6b489211609f1dfcce9713372b2e13f48d21e7e87ac7581b9143e",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/00-discover/competitive-analysis.md",
+        "type": "competitive-analysis",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/00-discover/current-state-inventory-publication.md",
+      "sha256": "0a42533b4a8164af77e68cb60494b46099b67fae923e781e13898b522667de66",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/00-discover/current-state-inventory-publication.md",
+        "type": "current-state-inventory",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/00-discover/product-vision.md",
+      "sha256": "135c4bc247a07f6ac376f0a714e3de571cdec693c6742cc59e6097bf15040a79",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/00-discover/product-vision.md",
+        "type": "product-vision",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/concerns.md",
+      "sha256": "bb220fdc78de5c1d93e05aa52d67592d14dc5219b13d6182b91a4cb1679db5a6",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/concerns.md",
+        "type": "concerns",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-001-protected-publishing.md",
+      "sha256": "fb7a5ec24cd9834a1650914dc30996c1a363e6691bb2361090ab085101e87b08",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-001-protected-publishing.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-002-identity-membership.md",
+      "sha256": "222097e539046faf7d83333659c593ef1beb7432132b1eaec00786af181ad83f",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-002-identity-membership.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-003-resource-identity.md",
+      "sha256": "6cc1af2f369679c98b6f1bc454476122676591f915a67eced1e10a352604db66",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-003-resource-identity.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-004-discussion.md",
+      "sha256": "920072777a1dd7f6db7f8d27b2e051123676611c11dfaa784d6beeaa78218bc2",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-004-discussion.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-005-site-adoption.md",
+      "sha256": "4d0dd32de2868e15d45be86d6db884e9d7d7de07cdd3aeabfd9b4a701598c764",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-005-site-adoption.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/features/FEAT-006-structured-actions.md",
+      "sha256": "45c85a05c627de20e6b071a52853747f48dbd6a6c6df64dac6aa6e93a1af1751",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/features/FEAT-006-structured-actions.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/prd.md",
+      "sha256": "7f76f5651ee4c65e69bc16d674c2d53dd3644f30d425b33ba7138b25bb6eecd6",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/prd.md",
+        "type": "prd",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-001-protect-a-publication.md",
+      "sha256": "f3b7a952b00ec74b78d232cd81a552faa7774a0008d8b79f8054c6320854623a",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-001-protect-a-publication.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-002-sign-in.md",
+      "sha256": "653a8ae7ae411fa8cf50da130e653129c18d6653fc97b60db9eb540476047276",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-002-sign-in.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-003-manage-membership.md",
+      "sha256": "f140acb38161d51d1ff06a3af3879cb6068bcb0e408fccf7b6003c2f392a4ecc",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-003-manage-membership.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-004-follow-resource-context.md",
+      "sha256": "7aace653ba9581fc842f03833030f21bcf925ea9cd05358f53bf877790e1c3e6",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-004-follow-resource-context.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-005-comment-and-reply.md",
+      "sha256": "b02b1c0397b333bb88f2d8ad0394719aa7e6bb1ab1f25fdef9305f05fedbd5b7",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-005-comment-and-reply.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-006-moderate-discussion.md",
+      "sha256": "87317b82f5b6c80fd26ba1fe0250781b3ffb1ef0e451d1bad9f54f6fa70819f1",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-006-moderate-discussion.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-007-adopt-in-two-sites.md",
+      "sha256": "e9f0c36f0bbb18e2fbb94d9c3ee40e63fcfd4af24b4b1d572bcda45ae43ac99f",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-007-adopt-in-two-sites.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-008-perform-structured-action.md",
+      "sha256": "afb264af6fdd48718d21f0639f984a095083fefe1e87848b945b5a6b6945ad48",
+      "exit_code": 0,
+      "report": {
+        "instance": "/tmp/concourse-bootstrap/repo/docs/helix/01-frame/user-stories/US-008-perform-structured-action.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.19.1/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    }
+  ]
+}

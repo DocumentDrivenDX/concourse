@@ -1,0 +1,75 @@
+{
+  "survey_date": "2026-10-29",
+  "sources": [
+    {
+      "checkout": "/Users/erik/Projects/entropy-exchange",
+      "head": "780c26a15a9f505c9a26b91728d86bc944d5f85e",
+      "path": "docs/publishing.md",
+      "sha256": "ef761b5f5e8edad3fbd594fa4135053a971ef1527579c98ca649c58a193343d9",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/entropy-exchange",
+      "head": "780c26a15a9f505c9a26b91728d86bc944d5f85e",
+      "path": ".github/workflows/publish.yml",
+      "sha256": "608bd585e9822c004c6ad49e15ea66052e1e101f0810d47de83477baf4a6de91",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/entropy-exchange",
+      "head": "780c26a15a9f505c9a26b91728d86bc944d5f85e",
+      "path": "script/assert-cloudflare-access",
+      "sha256": "1a16468432711b02833556cddb8e793ce75183b0793d169171e7d3504d7d1f6c",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/entropy-exchange",
+      "head": "780c26a15a9f505c9a26b91728d86bc944d5f85e",
+      "path": "_quarto-public.yml",
+      "sha256": "d29fc0d2f71c6c74b37c50c90bee3dd9010d3b3f96933282aaee0d27f31bb94d",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/entropy-exchange",
+      "head": "780c26a15a9f505c9a26b91728d86bc944d5f85e",
+      "path": "_quarto-internal.yml",
+      "sha256": "1d82feefe107a4846082d88160722431d6117273329cfe0949aa13864350514b",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/synaptiq-infra",
+      "head": "9d3fe99b55d2d071948e4eeac96d40893c935088",
+      "path": "cloudflare/access.tf",
+      "sha256": "a564919e68a12f751408c8eee21a72d44b6e1b2af6e9776cfe9b254c740acb77",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/Projects/synaptiq-infra",
+      "head": "9d3fe99b55d2d071948e4eeac96d40893c935088",
+      "path": "cloudflare/playbooks.tf",
+      "sha256": "ec95a917e4925e7a86816e11abf9fca5f02aea46dcd8c8009229f5ed560404c3",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/.codex/worktrees/5694/umf",
+      "head": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "path": "docs/helix/02-design/contracts/CONTRACT-900-declarative-actions.md",
+      "sha256": "b9143e06b8aad39f9e70e78ca9f2c04480c98536086de77b0553862f0fab8ee8",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/.codex/worktrees/5694/umf",
+      "head": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "path": "docs/helix/04-build/evidence/unified-python-access.md",
+      "sha256": "c8b07e7f03cd8c226ff64298e84a34d34784979d6eb7e0b4d9833da0bf7d78f3",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    },
+    {
+      "checkout": "/Users/erik/.codex/worktrees/5694/umf",
+      "head": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "path": "docs/helix/05-deploy/README.md",
+      "sha256": "d5bea620e2406714b7d2d9239862e59d8859ed0c432dd6b263a37736afa76df6",
+      "claim_scope": "inspected checkout bytes; not live service verification"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Accepted planning assumptions; concrete providers/topology still need design.
+slots:
+  auth-provider: auth-managed-identity
+  deploy-target: deploy-serverless-candidate
+# Owner explicitly deferred frontend-framework and datastore until design.
