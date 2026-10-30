@@ -45,3 +45,16 @@ special cases from reusable protected publishing. Goal two is inline comments
 on HELIX microsites for logged-in users. Existing domains and infrastructure
 resource identities must survive refactoring. Provider coverage beyond the
 existing Access configuration remains separately qualified.
+
+## Hosting and deployment direction — 2026-10-29
+
+The owner requested a Batten-hosted Concourse backend plugin on Databricks Apps
+and a separate static-content plugin serving a complete publication directory
+from a volume behind the Apps proxy. This is a required additional hosting
+profile; Batten integration and identity/storage qualification remain design work.
+
+For Cloudflare, the owner selected a Wrangler profile coupled with a very small
+reusable Terraform module that can be consumed by Synaptiq infrastructure.
+Application deployment must be repeatable and explicitly reviewed. Shared
+infrastructure stays with its existing owner; preparing this package does not
+authorize applying infrastructure, reading credentials or running migrations.

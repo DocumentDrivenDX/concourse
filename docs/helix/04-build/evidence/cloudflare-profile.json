@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-29",
+  "scope": "Wrangler release profile and reusable Terraform foundation; no live deployment",
+  "versions": {
+    "bun": "1.4.3",
+    "node": "26.12.1 (local; CI selects 22)",
+    "wrangler": "4.156.0",
+    "opentofu": "1.13.2",
+    "cloudflare_provider": "5.17.0"
+  },
+  "checks": {
+    "bun run check": "passed: strict types, lint, boundaries, build, 17 tests / 148 assertions",
+    "Wrangler deploy --dry-run": "passed against real prepared Worker bundle and explicit bindings; no credentials supplied; release hashes unchanged",
+    "bun run test:workerd": "passed existing local workerd/D1 integration",
+    "tofu validate": "passed, backend disabled; cached provider, local plugin execution",
+    "tofu test": "passed one mocked-provider plan test; no cloud-state plan or apply",
+    "tofu fmt -check -recursive infra/cloudflare": "passed",
+    "HELIX architecture and CONTRACT-001": "passed, zero findings",
+    "workflow YAML and git diff --check": "passed"
+  },
+  "limits": [
+    "No cloud credentials read, infrastructure plan/apply, deployment, or remote SQL executed.",
+    "Hosted CI is pending; local native runtime is not live Access qualification.",
+    "Existing state adoption, actual installation IDs, remote migration review, restore/retention policy and authenticated admission probes remain before production use.",
+    "Batten/Databricks Apps profile is recorded owner intent, not implemented or qualified here."
+  ],
+  "sha256": {
+    "scripts/cloudflare/profile.ts": "6da3fc36b1965a23c486be03512d18a6d761213cf92b12715fa1fd0e8e1602cc",
+    "scripts/cloudflare/release.ts": "e49d11531b8643960f0da4d956eb0e33c609765dfb8bb276439600607a8f93f1",
+    "tests/cloudflare.test.ts": "95598929b72cc237f730f45180d5f8c896cca0e162e6be9add53478b6b052f66",
+    "deploy/cloudflare/profile.example.json": "e18b04696b54a2e8efb7049ac82c1d714119ae62fa88ebf17c6ea00c7b760467",
+    ".github/workflows/cloudflare-release.yml": "cf5d22767f18df3da2c17f575386403e66054dd20903d15416dfe04c88c2d0ca",
+    ".github/workflows/test.yml": "42cfb544831aea6d2aa248a6bca0705abc14138c3e66e55eff03bb615c4bdbd5",
+    "infra/cloudflare/main.tf": "49f6803c6449139438d8ef4f1f34427ce69e70d18bc711fa27f47d84a8fca265",
+    "infra/cloudflare/variables.tf": "8df21afae858b3ac869efc54098d2f8371a49b63642cccb41db618609aa4dc9f",
+    "infra/cloudflare/versions.tf": "c04e2e72d3ba27187accd645f0f27e7a6791ee299b7f6b41702cd540a31d67ab",
+    "infra/cloudflare/tests/foundation.tftest.hcl": "46a21e609db4c436df42d8f603558517dc322c0bfd977046bcce92bf8fe0465e",
+    "package.json": "0b59bc99c5f9d14b85b4d77a9bdbc007b5871df6dcc5177864f83cb9eec23bae",
+    "bun.lock": "aff1f2017e1bf71977bcbeaa6803af2f600d0f44fdd62af202152878af518a40"
+  }
+}

@@ -46,7 +46,19 @@ login, validation/error/replay states covered. Destructive actions are absent.
 Service diagnostics contain only generic outcome/status; no OTel receiver
 integration is claimed. Add OTel wiring before broader production operations.
 
-## Observed results
+## Cloudflare packaging follow-up
+
+Owner selected Wrangler plus a minimal reusable Terraform foundation. Implement
+`infra/cloudflare`, an example native Wrangler profile and offline preparation /
+explicit digest-approved deployment commands. Test route/profile refusal,
+artifact tampering and approval failure before any subprocess invocation; run
+the actual pinned Wrangler dry-run against a prepared bundle. Validate the
+module against Cloudflare v5 without a backend or credentials. Keep migrations,
+existing-state adoption, live protection verification and production data
+admission separately reviewed. No change to another repository is needed to
+prepare the consumable module and example.
+
+## Observed first-slice results
 
 See evidence/first-slices.json for source hashes, scoped passing results and open
 cloud gates. The actual Worker bundle passes local D1 execution; real HELIX

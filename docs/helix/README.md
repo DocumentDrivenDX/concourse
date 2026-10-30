@@ -30,6 +30,13 @@ and inline section comments. [Deployment](05-deploy/first-slices.md) covers the
 cross-repository rollout; [execution evidence](04-build/evidence/first-slices.json)
 qualifies local checks and records open cloud gates.
 
+For Cloudflare adoption, use the small [Terraform foundation](../../infra/cloudflare/README.md)
+and [Wrangler release procedure](05-deploy/first-slices.md). Terraform owns
+publication infrastructure and D1 lifetime; Wrangler owns application code,
+bindings and routes. Preparation is offline, deployment requires the reviewed
+release digest, and SQL stays separately approved. The manual release workflow
+only produces an artifact; it cannot deploy.
+
 The first slice provides append-only comments/replies and retry recovery.
 Editing, moderation, public multi-provider qualification, structured actions and
 production retention/export/restore remain later scoped work. Session revocation
