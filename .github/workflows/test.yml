@@ -18,6 +18,7 @@ jobs:
       - run: tofu init -backend=false -input=false
       - run: tofu fmt -check -recursive
       - run: tofu validate
+      - run: python3 ../../scripts/check-publication-order.py
       - run: tofu test
   verify:
     runs-on: ubuntu-24.04

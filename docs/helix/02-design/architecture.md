@@ -81,6 +81,15 @@ publish static content. Its summary is desired configuration, not a cloud-state
 diff; an initial infrastructure plan and live protection checks remain required.
 The consumer's existing static build/sign/upload pipeline owns content releases.
 
+For a new Cloudflare publication, the empty Pages project precedes Access:
+Cloudflare requires that project before accepting its pages.dev destinations.
+The domain still waits for Access, and DNS waits for the domain. Content upload
+must wait for verified admission across custom, production and preview hosts;
+resource ordering alone does not gate an independently running content pipeline.
+`python3 scripts/check-publication-order.py` checks the actual provider graph.
+Consumers may vendor the sibling modules inside their root for reviewed,
+self-contained read-only plans; the reusable code stays owned by Concourse.
+
 Databricks Apps/Batten is an additional required hosting profile, with separate
 backend and volume publication plugins. Cloudflare tooling does not establish
 that profile's identity, storage or proxy guarantees and is not a portable

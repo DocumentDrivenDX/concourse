@@ -31,13 +31,16 @@ resource "cloudflare_zero_trust_access_application" "site" {
       error_message = "An explicit nonempty publication membership policy is required."
     }
   }
+  # Cloudflare rejects a pages.dev destination if its project does not exist.
+  # Keep new projects empty until Access is active and admission is verified;
+  # the content pipeline must not upload protected bytes during bootstrap.
+  depends_on = [cloudflare_pages_project.site]
 }
 resource "cloudflare_pages_project" "site" {
   count             = var.create_project ? 1 : 0
   account_id        = var.account_id
   name              = var.pages_project
   production_branch = "main"
-  depends_on        = [cloudflare_zero_trust_access_application.site]
 }
 resource "cloudflare_pages_domain" "site" {
   account_id   = var.account_id

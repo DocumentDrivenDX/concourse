@@ -30,6 +30,12 @@ configuration. Replace the source ref with a reviewed immutable commit. No
 provider or backend configuration is embedded. Use the consuming repository's
 Cloudflare v5 provider and its normal credentials and saved-plan/apply process.
 
+Alternatively, vendor both `infra/cloudflare` and its sibling
+`infra/protected-publication` beneath the consuming root, preserving their
+relative layout. Record the reviewed upstream commit and review each update.
+This works with plan runners that stage only the root directory and avoids
+fetching external module code during apply.
+
 The default protects the entire site, including production and wildcard preview
 Pages origins. `access_path = "/__concourse"` deliberately leaves static content
 public and protects collaboration only. Do not use it for private publications.

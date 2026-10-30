@@ -37,6 +37,12 @@ New empty Pages origins can exist before upload; do not upload private bytes
 until the production, wildcard-preview and custom origins are protected. A
 successful plan/apply is not proof of admission behavior.
 
+The project is intentionally created before Access: Cloudflare rejects its
+pages.dev destinations until the project exists. Wait for Access and admission
+checks before the first content deployment. The custom-domain and DNS resources
+remain ordered after Access. Consumers may vendor both sibling modules beneath
+the root they stage for planning; retain provenance and review each local update.
+
 ## 2. Keep one explicit installation profile
 
 Copy `deploy/cloudflare/profile.example.json` to an installation file, such as
