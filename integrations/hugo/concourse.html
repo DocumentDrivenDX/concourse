@@ -1,0 +1,9 @@
+{{- with site.Params.concourse -}}
+{{- if .enabled -}}
+{{- $page := $ -}}
+{{- with $page.File -}}
+<div data-concourse data-site="{{ site.Params.concourse.site }}" data-resource="{{ .Path }}" data-revision="{{ sha256 $page.RawContent }}" data-api="{{ site.Params.concourse.api | default "/__concourse/" }}" data-css="{{ "concourse/concourse.css" | relURL }}"></div>
+<script type="module" src="{{ "concourse/concourse.js" | relURL }}"></script>
+{{- end -}}
+{{- end -}}
+{{- end -}}

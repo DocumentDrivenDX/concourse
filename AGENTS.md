@@ -23,6 +23,8 @@ skill and start with `docs/helix/README.md`.
   resource/revision identity and unknown UMF content; refuse unqualified action
   execution. Do not imply D1 or another backend satisfies UMF transaction
   profiles without exact evidence.
-- This phase is discovery and framing. Complete relevant architecture, contracts
-  and test allocation before application implementation. Never deploy, modify
-  another project's infrastructure or read secrets as part of documentation work.
+- The owner authorized implementation on 2026-10-29: first remove Entropy Exchange
+  special cases, then add inline comments to HELIX microsites for signed-in users.
+  Complete affected design/contracts/test allocation before feature work.
+  Prepare cross-repository changes without touching unrelated working files.
+  Production applies, secret access and migrations need their own authorization.

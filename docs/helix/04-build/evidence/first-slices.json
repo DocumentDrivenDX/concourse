@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-29",
+  "scope": "First owner slices: generic protection and logged-in inline section comments. No cloud deployment or full broader-story acceptance.",
+  "checks": {
+    "bun_check": {
+      "passed": true,
+      "bun": "1.4.3",
+      "tests": 13,
+      "assertions": 123,
+      "includes": [
+        "strict TypeScript",
+        "Biome cognitive complexity <=15",
+        "module boundaries plus forbidden-import negative control",
+        "browser and Worker build"
+      ]
+    },
+    "workerd": {
+      "passed": true,
+      "node": "v26.12.1",
+      "compatibilityDate": "2026-08-06",
+      "scope": "Unmodified production Worker on local workerd/D1; outbound JWKS supplies signed synthetic identity; no cloud/provider login acceptance",
+      "assertions": [
+        "RS256 verified through Worker remote-JWKS path",
+        "D1 migration and prepared INSERT RETURNING",
+        "native same-key replay",
+        "first-primary session reads",
+        "missing credential denial"
+      ]
+    },
+    "browser": {
+      "passed": true,
+      "browser": "156.0.8078.4",
+      "scope": "Real Chromium, signed test JWT, native SQLite via test-only host adapter; no live provider/cloud acceptance",
+      "assertions": [
+        "inline post/reload/reply",
+        "response-loss recovery without duplicate",
+        "source unchanged",
+        "revision context",
+        "keyboard focus/submit",
+        "anonymous login and no disclosure"
+      ]
+    },
+    "real_helix_browser": {
+      "passed": true,
+      "browser": "156.0.8078.4",
+      "pages": 369,
+      "scope": "Real Hugo-rendered HELIX source and assets; local verified JWT/native SQLite adapter, no live cloud login",
+      "assertions": [
+        "authored section anchors",
+        "post and reload",
+        "base-path assets",
+        "desktop and mobile layout"
+      ]
+    },
+    "documentor": {
+      "passed": true,
+      "python_tests": 86
+    },
+    "hugo": {
+      "passed": true,
+      "version": "0.168.0",
+      "pages": 369,
+      "limits": "Existing stale Innsigle source claims warned; none was resealed or represented as verified."
+    },
+    "cloudflare_modules": {
+      "passed": true,
+      "provider": "5.28.1",
+      "modules": [
+        "protected-publication",
+        "collaboration-worker"
+      ],
+      "validation": "zero errors and warnings; no real state plan/apply"
+    },
+    "playbooks_live_probes": {
+      "passed": true,
+      "routes": 6,
+      "scope": "Signed-out GET challenges on Pages/custom origins and root/search/playbooks paths; no authenticated provider journey."
+    }
+  },
+  "source_sha256": {
+    "src/server/http.ts": "dbe72ca4a1d5186fa8aeea3217c3709bc1ff3d65e8aad91c91520957ed541088",
+    "src/server/config.ts": "1fc0869cde574dbf7644a82d69cf23e89969b7cee4c0457949e0e030ad0ea4d6",
+    "src/server/auth.ts": "fb558f6976f114de8b531827c1baad3948dac9fb7389badb8d6d939a4fc1fe50",
+    "src/server/worker.ts": "5f05e164a14017e9a0095fa720dbba8005aefe6203ce5c71080fb4ad8899c039",
+    "src/server/store.ts": "c41550fa12610a2d85ed1e0ccf898e441acb194c8d56a1baa290e57d40ea83b8",
+    "src/shared/validation.ts": "53a59355559c382e9fef91afcff5b99bf3c24b3992f7c3cf8ff828540fe0c7cd",
+    "src/shared/types.ts": "59f52b73d1db61210ebeba2ddc2d9c542d076016476c41349169b59bcb45e038",
+    "src/cli/check-publication.ts": "33183db69784174eaa6980e31e5b10e1148c4f47212799682b2510049cad8674",
+    "src/cli/install-hugo.ts": "2e2c1c68ea2d0abe5b6e415b6dcaed8996309bacf0531bac707b23dcb887e177",
+    "src/cli/check-access.ts": "05f27de8cd5c402681d69d945ddba3846bc75f94ee84f299debc4e6bede24453",
+    "src/browser/panel.ts": "b2ff7a84edb06532f33f14ea82ab064e75093a8aff455fe5ff28cbde903a2021",
+    "src/browser/api.ts": "156cf58977ced3d5661d6ab8281e261ab9dfccafb17c0099efa828607cecf4a9",
+    "src/browser/concourse.css": "9d72aee11039631776aeff9d14e9b64344145c702354b800cc3ac6157753d9ff",
+    "src/browser/index.ts": "dab5d197555738fc1d3d62b1a29886dafd00cffeedb20d0b7a70f75eb465b871",
+    "scripts/hugo-browser.ts": "8ee068d42f32f6bb7af3b53529c2a707d6a8a693bb7b555ea44df2d851fd7ef4",
+    "scripts/check-boundaries.ts": "d5bee6263516c2790226e1d6dde809f8ba8e8dd197bb17c77a5bb255f12209f3",
+    "scripts/browser-test.ts": "aa1fa4091816c01dedada0e772a04274943996aa1e66f7436616a255c631da33",
+    "scripts/workerd-test.mjs": "c5c7c03e640386ee3a69fae4460c8f690a5c17451428e4cea8592cc618682294",
+    "scripts/build.ts": "b1b15b65b25d97bc276f6e73a5573b1c80acd6c5c1d28133b6cc814006aa376b",
+    "tests/helpers.ts": "d7be52b31e567d15b197c3d9f8f70ca9e71c0b21d97f3cabcf51252d5f2c9431",
+    "tests/protection.test.ts": "5d2f18a163de96de3ac8278f99b7f277224476085b4bfd1bb673d0e8441d9355",
+    "tests/server.test.ts": "6a32b14e5d319241bb54f98af619cc3caec61bb74e246c9b7120907b1393923f",
+    "tests/publication.test.ts": "73d1dca67d1c6363b3d7badbf0f5a0b8a9230e5d54123446b80ae710fa0a00e7",
+    "infra/collaboration-worker/main.tf": "bddaae7d958ab698939124f6b7b4b36ba791897e506d808d65c1cc5dfc0d275a",
+    "infra/collaboration-worker/versions.tf": "c04e2e72d3ba27187accd645f0f27e7a6791ee299b7f6b41702cd540a31d67ab",
+    "infra/protected-publication/outputs.tf": "574339c9fe034b460f01c22c3a4d9b219f971e42ba6d69a7fdac6f0b6d45b44d",
+    "infra/protected-publication/main.tf": "68a2a061a92dfa22f9d5c2962a67fd3eda584fcdd374231847ec0bcba3ab29ad",
+    "infra/protected-publication/versions.tf": "c04e2e72d3ba27187accd645f0f27e7a6791ee299b7f6b41702cd540a31d67ab",
+    "infra/protected-publication/variables.tf": "a40da34e0a2139c86de0fd2d09cef821ff85bb84b827a4cf532a61fb14b59981",
+    "integrations/hugo/concourse.html": "dca9ee9986b23b79ff996b607301908a4ecd1b6f04f93be396fbb885333ec7f2",
+    "migrations/0001_comments.sql": "e4c01f875fcc8960d3bc863392f014af03e7d1ea8645d0813d58a796a272ea48"
+  },
+  "open": [
+    "Cloudflare credential-backed saved plan and no-replacement review for existing playbooks resources",
+    "Live HELIX Access/Pages/Worker/D1 initialization and provider login/expiry proof",
+    "Deployment credentials for HELIX mirror workflow",
+    "Production retention/export/restore and abuse policy before private reader data admission",
+    "Full account lifecycle, editing/moderation, other providers and UMF action profiles remain outside this slice"
+  ]
+}

@@ -71,3 +71,10 @@ Existing infrastructure owns shared access resources; final ownership/topology n
 ## Out of Scope
 
 Provider account linking, discussion mutations and editing publication content.
+
+## First implementation slice
+
+PUB-04: Protected publishing must use generic site inputs and shared Concourse
+tooling. Entropy Exchange must consume those inputs without repository/domain
+branches in the shared implementation. Existing cloud resource identities and
+reader-facing hostnames must be retained during migration.
