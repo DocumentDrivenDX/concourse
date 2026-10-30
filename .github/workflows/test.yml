@@ -1,0 +1,27 @@
+name: Concourse checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run test:workerd
+      - run: bunx playwright install --with-deps chromium
+      - run: bun run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: concourse-local-proof
+          path: test-results/

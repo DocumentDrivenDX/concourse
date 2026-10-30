@@ -51,7 +51,11 @@ e2e-framework = e2e-playwright (shipped-default, accepted); auth-provider =
 auth-managed-identity (operator-override); deploy-target =
 deploy-serverless-candidate (operator-override). frontend-framework/datastore are
 explicitly unresolved per owner instruction; architecture-style awaits design.
-These unresolved slots block affected implementation, not initial framing.
+For the first implementation, datastore resolves to project-owned
+`datastore-cloudflare-d1`, and frontend-framework to project-owned `ui-native-dom`.
+Their local concern/practice records below supersede the earlier deferral only
+for the native comment slice. Source: assumption from the authorized build and
+its architecture; no React/Next.js dependency is introduced.
 
 ## Area Labels
 
@@ -83,3 +87,13 @@ Not selected at initial framing: no concrete state model or assurance scope has
 been assessed. Review during action/permission consistency design if interacting
 rules and material failure cost justify a chosen rigor. Concurrency alone does
 not select this concern.
+
+## Initial native comment choices
+
+- [datastore-cloudflare-d1](concerns/datastore-cloudflare-d1/concern.md), source:
+  assumption from Architecture. Applies to API/data; select relational-data-modeling
+  practices for explicit constraints, indexes, parameterized statements and
+  migration/restore qualification. D1 is not a qualified UMF action backend.
+- [ui-native-dom](concerns/ui-native-dom/concern.md), source: assumption from
+  embedding requirements. Applies to UI; native controls and Shadow DOM own
+  components/styles. Verify Hextra's nested section anchors and host layout.

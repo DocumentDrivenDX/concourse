@@ -19,7 +19,8 @@ kind: product
 Concourse gives Novirhyza publication owners reusable protected access and
 contextual discussion across static sites. Readers authenticate through enabled
 Microsoft, Google or GitHub providers; site permissions govern what they can read
-and change. Comments attach to stable resources and identifiable revisions.
+and change. Comments attach inline to identifiable sections of stable resources and
+identifiable revisions.
 
 Reuse the Entropy Exchange protected-publication precedent. Concourse owns
 collaboration runtime and UI; UMF owns portable schemas/action declarations;
@@ -56,7 +57,7 @@ The frequency and cost of this duplication have not been measured.
 A new identity provider or password-management product; replacing static-site
 generators; executing arbitrary declared code; qualifying every UMF action
 profile; running both clouds at launch; a general social network; implementing
-storage/graph engines; production infrastructure changes in this planning phase.
+storage/graph engines; production infrastructure changes without an explicit deployment step.
 
 ## Users and Scope
 
@@ -179,8 +180,9 @@ serverless executor, D1 binding or Concourse production qualification.
 
 Public source repository; no publication of credentials or private reader data.
 No budget, deadline, residency region, traffic profile or software license has
-been selected. No implementation/deployment authorization is inferred from this
-framing request.
+been selected. The owner authorized implementation on 2026-10-29: reusable protected publishing
+first, then inline comments on HELIX microsites. Production deployment is a
+separate operation.
 
 ### Assumptions
 

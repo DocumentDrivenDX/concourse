@@ -1,0 +1,18 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+	"files": { "includes": ["src/**/*.ts"] },
+	"formatter": { "enabled": false },
+	"assist": { "enabled": false },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "none",
+			"complexity": {
+				"noExcessiveCognitiveComplexity": {
+					"level": "error",
+					"options": { "maxAllowedComplexity": 15 }
+				}
+			}
+		}
+	}
+}

@@ -6,3 +6,9 @@ node_modules/
 .wrangler/
 dist/
 .DS_Store
+
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfplan
+*.tfstate*
+test-results/

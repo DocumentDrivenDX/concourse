@@ -21,20 +21,16 @@ The [vision](00-discover/product-vision.md) governs the [PRD](01-frame/prd.md).
 Stories live individually under `01-frame/user-stories/`. Acceptance criteria are
 planned behavior, with no passing runtime evidence claimed.
 
-## Next decisions and design work
+## First implementation
 
-1. Choose the first publication/audience and clarify Microsoft work/school versus
-   personal-account coverage. Compare managed Access identity with any needed
-   public-site sign-in experience; document logout and revocation limits.
-2. Decide datastore, hosting topology, browser packaging and UI/component owner.
-   Write architecture/ADRs and a module boundary map with enforceable checks.
-3. Specify identity, membership, resource, discussion and integration contracts;
-   settle retention, account linking, delete/export and restore behavior.
-4. Allocate each story criterion to named tests, including full browser flows,
-   alternate-origin denial, cross-site isolation and lost-response recovery.
-5. Implement only after the affected design/test boundaries are defined.
+Owner-selected target: `helix.synaptiq.tools` using existing Google Workspace
+login. [Architecture](02-design/architecture.md), [CONTRACT-001](02-design/contracts/CONTRACT-001-first-slices.md)
+and the [execution plan](04-build/first-slices-plan.md) govern generic protection
+and inline section comments. [Deployment](05-deploy/first-slices.md) covers the
+cross-repository rollout; [execution evidence](04-build/evidence/first-slices.json)
+qualifies local checks and records open cloud gates.
 
-The initial delivery proposal is protected publishing and comments in one site,
-then reuse in a second site. Structured actions follow as a separate P1 slice.
-Cloudflare and Azure compatibility, native action execution and production
-readiness require separate evidence. No dates, budget or scale profile are set.
+The first slice provides append-only comments/replies and retry recovery.
+Editing, moderation, public multi-provider qualification, structured actions and
+production retention/export/restore remain later scoped work. Session revocation
+is bounded by signed-token expiry and configured membership rollout.

@@ -37,3 +37,11 @@ The conversation supplies product intent. Repository files supply source
 observations. Vendor documentation supplies documented capabilities as retrieved
 on 2026-10-29. None proves a live Concourse service. Source hashes and checkout
 identities are retained in `sources.json`; full upstream files are not copied.
+
+## Implementation direction — 2026-10-29
+
+The owner authorized building Concourse. Goal one is removing Entropy Exchange
+special cases from reusable protected publishing. Goal two is inline comments
+on HELIX microsites for logged-in users. Existing domains and infrastructure
+resource identities must survive refactoring. Provider coverage beyond the
+existing Access configuration remains separately qualified.

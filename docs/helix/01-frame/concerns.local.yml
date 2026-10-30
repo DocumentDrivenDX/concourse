@@ -2,4 +2,6 @@
 slots:
   auth-provider: auth-managed-identity
   deploy-target: deploy-serverless-candidate
-# Owner explicitly deferred frontend-framework and datastore until design.
+  datastore: datastore-cloudflare-d1
+  frontend-framework: ui-native-dom
+# Initial native slice selected in Architecture; no UMF action-store claim.

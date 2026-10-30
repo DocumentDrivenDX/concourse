@@ -73,3 +73,12 @@ History, retention and deletion semantics require owner/design decisions; UI rem
 ## Out of Scope
 
 Reactions, email notifications, real-time presence, social feeds and publication editing.
+
+## Inline comment slice
+
+DISC-05: Signed-in reviewers must open discussion beside a section of a HELIX
+microsite, post a plain-text comment and reload it. Signed-out readers receive
+a sign-in entry point; no discussion content is disclosed before authentication.
+The first slice supports section anchors, immutable comments and replies. Own
+comment editing and moderation remain later parts of the feature, not claims
+of this slice. Old-revision comments must remain visibly distinct.
