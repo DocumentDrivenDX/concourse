@@ -14,7 +14,7 @@ test('challenge requires an actual Access HTTPS login host, not a substring @cov
 test('generic protection covers origin wildcard and custom domain with no incumbent names @covers US-001-AC2', async () => {
   const source = await Bun.file('infra/protected-publication/main.tf').text();
   expect(source).toContain('*.${var.pages_project}.pages.dev'); expect(source).toContain('${var.hostname}');
-  expect(source).toMatch(/depends_on\s*=\s*\[cloudflare_zero_trust_access_application.site\]/);
+  expect(source).toMatch(/depends_on\s*=\s*\[cloudflare_zero_trust_access_application.site, cloudflare_pages_project.site\]/);
   expect(source.toLowerCase()).not.toMatch(/entropy|synaptiq|playbooks/);
 });
 test('module boundary gate rejects a real forbidden import negative control', async () => {

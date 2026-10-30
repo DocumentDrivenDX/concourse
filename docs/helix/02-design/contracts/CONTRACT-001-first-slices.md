@@ -77,6 +77,12 @@ pages_project, hostname, zone_id, allowed_idps, allowed_email_domains,
 allowed_emails, session_duration (default 24h). Outputs: access_application_id,
 audience, hostname. It MUST cover Pages production, wildcard previews and custom
 hostname before DNS/domain activation. Empty identity/policy lists are invalid.
+For new projects, creation precedes Access because Cloudflare requires the
+Pages destination to exist. The project MUST remain empty until Access is
+active and production/preview admission has been verified. Project creation
+alone MUST NOT trigger a protected content upload. The domain depends on Access,
+and DNS depends on the domain. Existing projects require the same admission
+checks before further private uploads; this module cannot undo prior exposure.
 The consumer supplies site-specific values; shared source MUST have no site-name
 branches. Moved blocks preserve existing resource identities during adoption.
 
