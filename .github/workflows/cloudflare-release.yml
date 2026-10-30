@@ -1,0 +1,35 @@
+name: Prepare Cloudflare release
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Checked-in installation profile (not the placeholder example)
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run test:workerd
+      - name: Prepare reviewable release (offline)
+        env:
+          PROFILE: ${{ inputs.profile }}
+        run: bun run cloudflare:prepare "$PROFILE" cloudflare-release > cloudflare-review.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-release-${{ github.sha }}
+          path: |
+            cloudflare-release/
+            cloudflare-review.json
+          if-no-files-found: error

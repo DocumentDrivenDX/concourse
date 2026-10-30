@@ -88,6 +88,42 @@ path qualify, never substring matches in query parameters. `install-hugo.ts
 
 ## Precedence and Compatibility
 
+### Cloudflare deployment surface
+
+`infra/cloudflare` composes `infra/protected-publication` with a D1 database
+whose lifecycle prevents destruction. It accepts that module's publication
+inputs and returns `installation` (account_id, zone_id, hostname, worker_name,
+database_id, database_name, audience). It MUST NOT own Worker code, bindings or
+routes. The consumer pins a reviewed source revision and supplies the existing
+identity-provider IDs. Neither module applies SQL or reads credentials itself.
+
+`deploy/cloudflare/profile.example.json` demonstrates the native Wrangler
+configuration subset. Profiles are JSON (comments are not accepted by the
+preparation tool). Exactly one DB binding and one or more unique site routes are
+required. Each route MUST match a configured site's HTTPS host and exactly
+`/__concourse/*`, with an explicit zone_id. Unknown settings, environments,
+assets, build hooks and alternative entry points refuse. The runtime's SITES
+validator supplies membership and identity validation. The compatibility date
+is pinned to the tested first-slice profile; workers_dev and preview_urls MUST
+be false. Profiles contain IDs and policy, never credentials.
+
+`bun run cloudflare:prepare <profile.json> <new-release-directory>` reads the
+profile, built `dist/worker.js` and committed SQL files. It creates a new release
+directory with `worker.js`, normalized `wrangler.json`, `migrations/*.sql`, and
+`release.json`. It refuses existing output directories, placeholders and unsafe
+routes. The manifest includes source commit, pinned Wrangler version, per-file
+SHA-256 digests and a release digest over its canonical payload. Preparation
+does not contact Cloudflare or inspect credentials.
+
+`bun run cloudflare:deploy <release-directory> --approve <release-digest>` MUST
+verify the digest and all file hashes, reject extra files and symlinks, validate
+configuration again and require the installed Wrangler version to match before
+invoking `wrangler deploy --config <release>/wrangler.json`. No automatic SQL,
+Terraform apply, static publication upload or rollback is permitted. Wrong or
+missing approval, changed bytes or invalid profile aborts before Wrangler starts.
+The digest is a review/integrity boundary, not a signature or cloud-state plan.
+The command uses the invoking operator's separately authorized credential.
+
 Unknown protocol/config version or fields refuse. Site host/config and verified
 principal take precedence over browser fields. Wire v1 is separate from any UMF
 extension or native action profile. Additive wire changes need explicit version

@@ -1,0 +1,16 @@
+{
+  "name": "helix-concourse",
+  "account_id": "REPLACE_ACCOUNT_ID",
+  "compatibility_date": "2026-08-06",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "helix.synaptiq.tools/__concourse/*", "zone_id": "REPLACE_ZONE_ID" }
+  ],
+  "vars": {
+    "SITES": "[{\"id\":\"helix\",\"origin\":\"https://helix.synaptiq.tools\",\"issuer\":\"https://REPLACE_TEAM.cloudflareaccess.com\",\"audience\":\"REPLACE_ACCESS_AUDIENCE\",\"domains\":[\"synaptiq.ai\"],\"emails\":[]}]"
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "helix-concourse-comments", "database_id": "REPLACE_DATABASE_ID" }
+  ]
+}

@@ -38,8 +38,10 @@ Documentor has matching opt-in installation through `publish.site.concourse`.
 
 The API uses `/__concourse/` on the publication's own origin. Configure Access,
 site membership, a migrated D1 database and a Worker route before enabling it.
-There is no production debug-login option. See the deployment guide for the
-owner-selected `helix.synaptiq.tools` target and staged rollout.
+There is no production debug-login option. Use the small [Terraform foundation](infra/cloudflare/README.md) and
+[Wrangler release procedure](docs/helix/05-deploy/first-slices.md) for the
+owner-selected `helix.synaptiq.tools` target. `cloudflare:prepare` works offline;
+`cloudflare:deploy` requires a reviewed release digest and never runs migrations.
 
 Install the repository pre-commit gate with `git config core.hooksPath .githooks`.
 Use the installed HELIX catalog; methodology templates are not vendored here.

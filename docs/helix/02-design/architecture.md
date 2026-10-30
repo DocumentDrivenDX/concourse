@@ -43,6 +43,8 @@ Existing infrastructure owns Access/DNS; each publication owns its site inputs.
 | src/browser | Inline UI and same-origin client | mountComments | shared, DOM | Server, CLI, Node/Bun |
 | src/cli | Protected-host check and distribution installation | CLI | Bun/Node, shared | server/browser internals |
 | infra/protected-publication | Pages/Access/DNS resource composition | Module inputs/outputs | Cloudflare provider | Site-name branching |
+| infra/cloudflare | Installation foundation: publication module and protected D1 lifetime | Terraform inputs and installation output | protected-publication, Cloudflare provider | Worker code, routes or deployment credentials |
+| scripts/cloudflare | Validate Wrangler profile, prepare and verify release bytes, explicit deployment command | CONTRACT-001 deployment surface | server/config public validator, Node/Bun, pinned Wrangler CLI | Browser internals, automatic migrations, Terraform mutation |
 
 **Integration Owners**: server/auth.ts owns Access translation; server/store.ts
 owns D1 SQL; browser owns DOM/UI; infra module owns provider composition.
@@ -62,6 +64,27 @@ D1 stores append-only rows; local native SQLite and Workers local emulation
 qualify separate profiles. Cloud backup/restore and retention need a production
 runbook and owner policy before real data admission. No cloud resources are
 provisioned by this local build.
+
+The supported Cloudflare installation entry point is `infra/cloudflare`.
+Terraform owns Pages project/domain, DNS, Access and D1 lifetime. Wrangler owns
+Worker code, bindings and `/__concourse/*` routes exclusively. Existing login
+providers are referenced by ID, never recreated. The earlier
+`infra/collaboration-worker` is a legacy alternative and must not manage a
+Wrangler-owned Worker or route.
+
+An installation keeps one explicit Wrangler JSON profile. Preparation runs
+offline, validates the selected audience/hosts, disables workers.dev and version
+URLs, and packages built Worker/configuration/migration bytes with hashes. The
+separate deployment command requires the reviewed release digest and rechecks
+all bytes before invoking the pinned Wrangler. It does not apply migrations or
+publish static content. Its summary is desired configuration, not a cloud-state
+diff; an initial infrastructure plan and live protection checks remain required.
+The consumer's existing static build/sign/upload pipeline owns content releases.
+
+Databricks Apps/Batten is an additional required hosting profile, with separate
+backend and volume publication plugins. Cloudflare tooling does not establish
+that profile's identity, storage or proxy guarantees and is not a portable
+backend contract. No Batten runtime support is claimed by this package.
 
 ## Data Flow
 
@@ -101,3 +124,10 @@ validation. CONTRACT-001 owns the native v1 protocol; this local profile does no
 claim UMF projection, generation or action qualification. Append-only SQL is the
 persistence authority; unknown request members are rejected, never erased from
 UMF documents. No UMF document is ingested by this slice.
+
+Deployment uses Wrangler 4.156.0's native configuration schema, not a new UMF
+model. The preparer accepts a bounded subset and fixes bundle/migration paths;
+the actual pinned Wrangler dry-run verifies vendor compatibility. The release
+manifest is local distribution-integrity metadata, with no UMF identity, action
+or transaction semantics. The earlier UMF inspection supplies no appropriate
+replacement for this provider-specific configuration.

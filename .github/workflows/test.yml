@@ -5,6 +5,20 @@ on:
 permissions:
   contents: read
 jobs:
+  infrastructure:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: infra/cloudflare
+    steps:
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.13.2
+      - run: tofu init -backend=false -input=false
+      - run: tofu fmt -check -recursive
+      - run: tofu validate
+      - run: tofu test
   verify:
     runs-on: ubuntu-24.04
     steps:
