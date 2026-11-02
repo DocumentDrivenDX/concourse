@@ -50,3 +50,5 @@ Use the installed HELIX catalog; methodology templates are not vendored here.
 
 Concourse is available under `MIT OR Apache-2.0`, at your option. See
 [MIT](LICENSE-MIT) and [Apache-2.0](LICENSE-APACHE).
+
+Bundled dependency attribution is retained in [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt).
