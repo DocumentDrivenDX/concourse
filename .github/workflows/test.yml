@@ -70,4 +70,4 @@ jobs:
         run: >-
           gh release create "$GITHUB_REF_NAME" release/* --verify-tag --prerelease
           --title "Concourse ${GITHUB_REF_NAME#v} — local qualification preview"
-          --notes-file "docs/helix/05-deploy/release-${GITHUB_REF_NAME#v}.md"
+          --notes-file release/release-notes.md
