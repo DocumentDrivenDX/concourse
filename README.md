@@ -48,5 +48,5 @@ Use the installed HELIX catalog; methodology templates are not vendored here.
 
 ## License
 
-Source/package licensing requires an owner decision before code distribution.
-Repository visibility alone does not grant a software license.
+Concourse is available under `MIT OR Apache-2.0`, at your option. See
+[MIT](LICENSE-MIT) and [Apache-2.0](LICENSE-APACHE).

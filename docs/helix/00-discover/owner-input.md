@@ -28,7 +28,7 @@ for review, not claims of existing Concourse behavior.
 
 First audience/site; account-linking rules; Microsoft account types; permission
 and revocation timing; moderation and retention policy; data residency; database;
-UI/component owner; operational budget; license; deployment account/domain;
+UI/component owner; operational budget; deployment account/domain;
 public-site login experience; production acceptance profile.
 
 ## Evidence boundary
@@ -58,3 +58,9 @@ reusable Terraform module that can be consumed by Synaptiq infrastructure.
 Application deployment must be repeatable and explicitly reviewed. Shared
 infrastructure stays with its existing owner; preparing this package does not
 authorize applying infrastructure, reading credentials or running migrations.
+
+## Software license — 2026-11-02
+
+The owner selected `MIT OR Apache-2.0`, matching the UMF family. This authorizes
+source and package distribution under either license. Production deployment,
+secret access and migrations remain separately authorized operations.
