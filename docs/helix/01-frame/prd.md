@@ -179,8 +179,8 @@ serverless executor, D1 binding or Concourse production qualification.
 ### Constraints
 
 Public source repository; no publication of credentials or private reader data.
-No budget, deadline, residency region, traffic profile or software license has
-been selected. The owner authorized implementation on 2026-10-29: reusable protected publishing
+Software is licensed `MIT OR Apache-2.0` by owner decision on 2026-11-02.
+No budget, deadline, residency region or traffic profile has been selected. The owner authorized implementation on 2026-10-29: reusable protected publishing
 first, then inline comments on HELIX microsites. Production deployment is a
 separate operation.
 
@@ -216,8 +216,8 @@ references are external sources, not invented HELIX graph edges.
   authorization acceptance and meaningful logout/revocation tests.
 - What are data retention, deletion, export and moderation-history rules? Owner;
   blocks production data admission and destructive operations.
-- What datastore, UI/component owner, host topology, region, budget and software
-  license apply? Owner/design; blocks corresponding implementation/release choices.
+- What datastore, UI/component owner, host topology, region and budget
+  apply? Owner/design; blocks corresponding implementation/release choices.
 - Which structured action and exact UMF profile? UMF/Concourse maintainers;
   blocks FR-8 design, without blocking protected comments discovery.
 
