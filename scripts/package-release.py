@@ -2,6 +2,9 @@
 import hashlib
 import json
 import os
+import posixpath
+import re
+from urllib.parse import quote, urlsplit
 from pathlib import Path
 import shutil
 import subprocess
@@ -32,4 +35,26 @@ receipt = {"tag": tag, "sourceCommit": commit, "workflowRun": os.environ.get("GI
 with tarfile.open(output / f"concourse-{version}.tar.gz", "w:gz") as archive:
     archive.add(stage, arcname=stage.name)
 shutil.rmtree(stage)
+notes_path = f"docs/helix/05-deploy/release-{version}.md"
+notes = (root / notes_path).read_text()
+if notes.startswith("---\n"):
+    notes = notes.split("---", 2)[2].lstrip()
+
+
+def source_link(match):
+    label, href = match.groups()
+    parts = urlsplit(href)
+    if parts.scheme or parts.netloc or not parts.path:
+        return match.group(0)
+    target = posixpath.normpath(posixpath.join(posixpath.dirname(notes_path), parts.path))
+    if target.startswith("../") or not (root / target).is_file():
+        raise SystemExit(f"Release note source link does not exist: {href}")
+    url = f"https://github.com/DocumentDrivenDX/concourse/blob/{quote(tag)}/{quote(target)}"
+    if parts.fragment:
+        url += "#" + parts.fragment
+    return f"[{label}]({url})"
+
+
+notes = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", source_link, notes)
+(output / "release-notes.md").write_text(notes)
 (output / "SHA256SUMS").write_text("".join(f"{hashlib.sha256(f.read_bytes()).hexdigest()}  {f.name}\n" for f in sorted(output.iterdir()) if f.is_file()))
