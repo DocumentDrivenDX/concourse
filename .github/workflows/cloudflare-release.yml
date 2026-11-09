@@ -10,6 +10,7 @@ permissions:
   contents: read
 jobs:
   prepare:
+    timeout-minutes: 20
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
