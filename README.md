@@ -4,8 +4,11 @@ Shared access and collaboration for published content: protected static sites,
 comments and, later, structured interactions described by UMF.
 
 Start with [the project index](docs/helix/README.md). The first implementation provides generic protected-publishing tooling and
-a serverless inline section-comment service. Cloud deployment remains separate
-from the local verification recorded in the project evidence.
+a serverless inline section-comment service.
+
+Status: 0.1.x. Tested in CI: Worker API (unit + Miniflare), browser widget and Hugo
+integration (Playwright, Linux Chromium), Terraform validation. Not tested in CI: a live Cloudflare
+deployment. Not built: UMF structured actions; Concourse is not integrated with the UMF stack.
 
 Concourse builds on the Entropy Exchange playbooks pattern: static publication
 with managed login and access control. The proposed split keeps reusable hosting

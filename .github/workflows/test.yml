@@ -1,9 +1,11 @@
 name: Concourse checks
 # PR tier: tofu checks + `bun run check` + workerd tests (one runner each, fast).
-# Playwright browser suite is heavy: runs on tags, dispatch, weekly, or a PR
+# Push to main (restored) runs the same fast tier. Playwright browser suite is
+# heavy: runs on tags, dispatch, weekly, or a PR
 # labelled `ci:full`. Release job on tags still needs the full suite.
 on:
   push:
+    branches: [main]
     tags: ['v*']
   pull_request:
     types: [opened, synchronize, reopened, labeled]
@@ -17,7 +19,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 env:
-  FULL: ${{ github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'ci:full') }}
+  FULL: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/') || contains(github.event.pull_request.labels.*.name, 'ci:full') }}
 permissions:
   contents: read
 jobs:
