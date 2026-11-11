@@ -27,8 +27,7 @@ Owner-selected target: `helix.synaptiq.tools` using existing Google Workspace
 login. [Architecture](02-design/architecture.md), [CONTRACT-001](02-design/contracts/CONTRACT-001-first-slices.md)
 and the [execution plan](04-build/first-slices-plan.md) govern generic protection
 and inline section comments. [Deployment](05-deploy/first-slices.md) covers the
-cross-repository rollout; [execution evidence](04-build/evidence/first-slices.json)
-qualifies local checks and records open cloud gates.
+cross-repository rollout.
 
 For Cloudflare adoption, use the small [Terraform foundation](../../infra/cloudflare/README.md)
 and [Wrangler release procedure](05-deploy/first-slices.md). Terraform owns
