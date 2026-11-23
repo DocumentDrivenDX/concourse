@@ -22,7 +22,7 @@ output = root / "release"
 output.mkdir()
 stage = output / f"concourse-{version}"
 stage.mkdir()
-for name in ["dist", "migrations", "integrations", "deploy", "infra", "README.md", "LICENSE-MIT", "LICENSE-APACHE", "THIRD-PARTY-NOTICES.txt"]:
+for name in ["dist", "migrations", "operations", "integrations", "deploy", "infra", "README.md", "LICENSE-MIT", "LICENSE-APACHE", "THIRD-PARTY-NOTICES.txt"]:
     source = root / name
     if source.is_dir():
         shutil.copytree(source, stage / name, ignore=shutil.ignore_patterns(".terraform", "*.tfstate*", "*.tfplan"))

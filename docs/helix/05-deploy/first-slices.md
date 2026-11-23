@@ -206,3 +206,59 @@ inbox access. Record deployment/version IDs and artifact hashes locally without
 publishing installation details or reader data. Local browser fixtures do not
 qualify these deployed journeys. Retention/export/restore and abuse policy remain
 installation decisions; this slice does not introduce moderation or notifications.
+
+## Maintainer workspace rollout
+
+The workspace is served by the existing Worker at `/__concourse/admin/`. Its
+content-hashed JS/CSS and shell are embedded in the approved Worker bytes; no
+public asset upload or new infrastructure module is required. Every asset/API
+request verifies membership and the relevant capability. The feedback widget
+links permitted users to the workspace. The existing login return allowlist
+permits exactly `/__concourse/admin/` in addition to publication pages.
+
+Prepare and review a new immutable release using the existing Wrangler profile
+procedure. Before deploying its Worker, explicitly approve and apply pending
+migrations in order through `0003_management.sql` on each selected installation.
+An installation with only comments must also apply `0002_feedback.sql`; this
+bundle's reader API depends on thread membership from migration 0003. Deployment
+preparation packages SQL but never runs it. Keep installation IDs and real email
+allowlists in private installation profiles, outside this public repository.
+
+Existing exact-email `maintainers` grant feedback maintenance. The independent
+optional `moderators` array grants discussion management; omitted means none.
+Both still require site membership. Assigning one does not imply the other.
+Review those profile changes explicitly before preparing the release; there is
+no browser identity administration or group creation.
+
+After an approved rollout, verify anonymous/non-role denial for shell/assets/API,
+then both authorized queues with Google login. Submit synthetic feedback and a
+root/reply; verify search, counts, triage, resolution, reply reopening and reload.
+Use the actual publication resource identity; the workspace does not guess links
+from Markdown paths. Remote performance/cost budgets and canonical-table export
+behavior must be checked on an isolated remote database before production migration.
+Local workerd verification does not qualify cloud quotas, Google or remote export.
+
+### Canonical recovery and rollback
+
+Take a canonical-table-only backup of `comments`, `feedback` and `review_events`
+through the approved D1 export procedure, with writes paused. Do not rely on a
+full FTS virtual-table dump being reimportable into D1. Verify that the export
+includes exact IDs, event versions and retry payloads, and restrict access to
+this private content. No production export is part of implementation verification.
+
+For this recovery sequence, use data-only canonical inserts; a schema-inclusive
+dump must not be applied over already migrated tables. Prove recovery in a separate
+database: create all migrations, import comments
+in ascending ID and feedback before importing review events in version order,
+then execute `operations/rebuild-management.sql`. Rebuild never changes canonical
+messages/events. Compare full-result query counts, ancestry, original bodies,
+head versions/statuses, histories and retry acknowledgements. Projection writes
+and canonical import must complete before enabling readers/writers. Retain the
+old database until parity is confirmed. Local SQLite and D1 tests exercise this
+restore/rebuild sequence using synthetic records.
+
+On application failure, roll back to the prior approved Worker release while
+retaining the additive schema and canonical events. If a projection trigger fails,
+new writes fail closed and clients keep retry identity. Pause writes, diagnose
+and rebuild in isolation before approving any repair; do not remove canonical
+review history or retry keys. No destructive down-migration is provided.

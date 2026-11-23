@@ -22,6 +22,7 @@ export async function sectionPanel(heading: HTMLElement, context: Context, clien
   const reply = node('p'), cancel = node('button', 'Cancel reply'); cancel.type = 'button'; cancel.hidden = true;
   form.append(label, reply, cancel, send); form.hidden = !signedIn;
   details.append(status, login, list, older, refresh, form);
+  let states: NonNullable<CommentPage['threadStates']> = [];
   let loaded = false, busy = false, next: number | null = null, parentId: number | undefined;
   const pendingKey = `concourse:${context.subject}:${context.site}:${context.resource}:${anchor}`;
   let pending: CommentInput | null = null;
@@ -50,6 +51,8 @@ export async function sectionPanel(heading: HTMLElement, context: Context, clien
     if (comment.revision !== context.revision) li.append(node('p', 'From an earlier or different revision.'));
     if (comment.quote !== quote) li.append(node('p', `Original section: ${comment.quote}`));
     if (comment.parentId) li.append(node('p', `Reply to comment ${comment.parentId}`));
+    const state = states.find(s => s.threadId === comment.threadId);
+    if (state) li.append(node('p', `Discussion ${state.threadId}: ${state.status === 'resolved' ? 'Resolved' : 'Open'}`));
     li.append(node('p', comment.body));
     if (signedIn) {
       const button = node('button', `Reply to comment ${comment.id}`); button.type = 'button';
@@ -59,6 +62,7 @@ export async function sectionPanel(heading: HTMLElement, context: Context, clien
     return li;
   }
   function show(page: CommentPage, append: boolean): void {
+    states = page.threadStates ?? [];
     if (!append) list.replaceChildren();
     const fragment = document.createDocumentFragment();
     for (const comment of page.comments) fragment.append(item(comment));

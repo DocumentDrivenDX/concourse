@@ -26,15 +26,15 @@ ddx:
 
 Design a dedicated application over the existing Concourse backend. The owner
 explicitly selected feedback and discussions together, with search, sort, filters
-and a simple dashboard. Proposed initial workflows are New/In review/Closed for
+and a simple dashboard. Initial workflows are New/In review/Closed for
 feedback and Open/Resolved for discussions. One installation per workspace is a
-planning assumption. No implementation or migration is claimed by this design;
+planning assumption. The native workspace follows CONTRACT-003;
 the [clickable prototype](../prototypes/maintainer-workspace.html) uses synthetic
 data only. Its local query/review simulation is for interface review, not evidence
 of FTS, D1 concurrency or production behavior.
 
-Current evidence: `src/server/feedback.ts` exposes newest-first feedback pages;
-`src/server/store.ts` exposes comments by resource/anchor. Neither implements
+Baseline before FEAT-008: `src/server/feedback.ts` exposes newest-first feedback pages;
+`src/server/store.ts` exposes comments by resource/anchor. Neither legacy surface implemented
 cross-resource search, counts, triage or thread resolution. `src/server/http.ts`
 authorizes feedback reads through exact maintainer emails. Preserve legacy APIs.
 
@@ -220,9 +220,10 @@ silently acquire moderation rights. No identity group administration is introduc
 
 ### Gaps
 
-These management interfaces are not implemented. Workflow names/reopen rules remain
-proposals for review. Native D1 trigger/projection and restore qualification are
-required before migration; current widget tests do not prove the new workspace.
+Native management interfaces implement these rules. Local production Worker/D1
+verification covers FTS, guarded review writes, reply races, trigger rollback and
+canonical restore/rebuild. Remote D1 migration/export and live provider acceptance
+remain deployment qualification; local verification does not establish them.
 Cross-installation aggregation, comment editing/hiding and external automation stay
 outside this design. Production operations need their own authorization.
 
@@ -239,7 +240,7 @@ review workflow, not service monitoring. No OTel receiver integration is implied
 
 Feedback and discussions together is owner-selected. Proposed defaults are one
 installation, three feedback states, two discussion states, separate explicit roles,
-and reopening on reply. They are design recommendations, not deployed behavior.
+and reopening on reply. They are implemented defaults; production rollout remains separately authorized.
 No additional search service, secret, identity group or frontend framework is selected.
 
 ## Risks

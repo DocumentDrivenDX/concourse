@@ -161,14 +161,14 @@ Pages project with Access only on `/__concourse`. Hosting/access changes belong
 in the consuming infrastructure repository and require its reviewed apply path.
 A separate Worker/database avoids migrating HELIX merely to publish this site.
 
-## Proposed maintainer workspace
+## Maintainer workspace
 
-FEAT-008 and SD-008 propose a dedicated feedback and discussion workspace under the existing
+FEAT-008 and SD-008 define a dedicated feedback and discussion workspace under the existing
 protected `/__concourse/admin/` route. CONTRACT-003 owns search, whole-result
-counts, bounded detail/history, feedback triage and discussion resolution. This is a design extension,
-not implemented behavior; the widget and existing submission/comment APIs remain.
+counts, bounded detail/history, feedback triage and discussion resolution. The widget and existing submission/comment APIs remain compatible;
+reader responses additionally carry thread identity and Open/Resolved state.
 
-Planned module additions retain the existing ownership boundaries:
+Module additions retain the existing ownership boundaries:
 
 | Module | Owned surface | Allowed dependencies | Forbidden dependencies |
 |---|---|---|---|
@@ -178,9 +178,9 @@ Planned module additions retain the existing ownership boundaries:
 | src/server/management/d1 | Fixed query builders, FTS, thread membership and guarded review events | management public ports, D1 adapter | DOM, frontend and arbitrary caller SQL |
 
 worker.ts remains the production composition root and serves a build-embedded
-admin asset manifest only after authorization. The boundary check must distinguish
-the application core from its D1 adapter, and include negative imports for the
-new modules. The current check does not yet enforce these proposed additions.
+admin asset manifest only after authorization. The boundary check distinguishes
+the application core from its D1 adapter, and includes negative imports for the
+new modules. `bun run check:boundaries` runs locally, in pre-commit and CI.
 
 Keep feedback, comments and review events canonical; thread membership, review
 heads and FTS are rebuildable projections. Explicit moderator addresses grant

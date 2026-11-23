@@ -22,12 +22,12 @@ ddx:
 
 # Maintainer workspace contract
 
-**Version**: proposed native v1. **Type**: HTTP, query and application boundary.
+**Version**: native v1. **Type**: HTTP, query and application boundary.
 
 ## Purpose
 
 Define search, dashboard reads, feedback triage and discussion review for FEAT-008.
-This proposal is not an implemented API or a qualified UMF executor profile.
+The native implementation is not a qualified UMF executor profile.
 
 ## Scope and Boundaries
 
@@ -77,7 +77,7 @@ owns request bounds/enums; endpoints select their named definition, never infer 
 operation from shape. Default page size is 25, maximum 100. Filters combine with
 AND; values within an array combine with OR. Absent/empty arrays mean unrestricted.
 `resource` is exact/case-sensitive stored identity, not a URL. An anchor filter
-requires a resource. Dates are valid UTC instants normalized to millisecond ISO:
+requires a resource; empty anchor matches whole-page feedback. Dates are valid UTC instants normalized to millisecond ISO:
 inclusive From, exclusive To, with From before To.
 
 | Queue | Filter fields | Date meaning | Sorts |

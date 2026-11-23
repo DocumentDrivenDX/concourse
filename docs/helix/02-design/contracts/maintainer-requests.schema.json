@@ -29,7 +29,7 @@
         },
         "anchor": {
           "type": "string",
-          "minLength": 1,
+          "minLength": 0,
           "maxLength": 512
         },
         "kinds": {
@@ -82,7 +82,7 @@
         },
         "anchor": {
           "type": "string",
-          "minLength": 1,
+          "minLength": 0,
           "maxLength": 512
         },
         "statuses": {

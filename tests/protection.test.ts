@@ -24,5 +24,17 @@ test('module boundary gate rejects a real forbidden import negative control', as
     await mkdir(join(root, 'src/browser'), { recursive: true });
     await writeFile(join(root, 'src/browser/bad.ts'), "import { store } from '../server/store.ts';");
     expect(await violations(root)).toHaveLength(1);
+    await mkdir(join(root, 'src/admin'), { recursive: true });
+    await mkdir(join(root, 'src/client'), { recursive: true });
+    await mkdir(join(root, 'src/server/management'), { recursive: true });
+    await writeFile(join(root, 'src/admin/bad.ts'), "import { CommentStore } from '../server/store.ts';");
+    await writeFile(join(root, 'src/client/bad.ts'), "import type { Context } from '../browser/panel.ts';");
+    await writeFile(join(root, 'src/server/management/bad.ts'), "import { D1Management } from './d1/repository.ts';");
+    expect((await violations(root)).length).toBe(4);
+    await writeFile(join(root, 'src/admin/bad.ts'), "import { Client } from '../client/api.ts';");
+    await writeFile(join(root, 'src/client/bad.ts'), "import type { Comment } from '../shared/types.ts';");
+    await writeFile(join(root, 'src/server/management/bad.ts'), "import type { ManagementRepository } from '../../shared/management.ts';");
+    expect((await violations(root)).length).toBe(1);
+
   } finally { await rm(root, { recursive: true }); }
 });

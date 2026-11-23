@@ -2,12 +2,17 @@ import { Problem, type Principal, type Site } from '../shared/types.ts';
 import { commentInput, integer, readJson, text, feedbackInput } from '../shared/validation.ts';
 import { type CommentStore } from './store.ts';
 import type { FeedbackStore } from './feedback.ts';
+import type { ManagementRepository } from '../shared/management.ts';
+import { management, admit, capabilities } from './management/application.ts';
+import { assetResponse, builtAssets, type AdminAsset } from './admin-assets.ts';
 import { siteFor } from './config.ts';
 export interface Dependencies {
   sites: Site[];
   authenticate(request: Request, site: Site): Promise<Principal>;
   store: CommentStore;
   feedback: FeedbackStore;
+  management?: ManagementRepository;
+  adminAssets?: Record<string, AdminAsset>;
 }
 function json(data: unknown, status = 200): Response { return Response.json(data, { status, headers: {
   'cache-control': 'no-store', 'x-content-type-options': 'nosniff', 'referrer-policy': 'same-origin' } }); }
@@ -22,18 +27,19 @@ export async function handle(request: Request, deps: Dependencies): Promise<Resp
       return login(url, site);
     }
     if (request.method === 'GET' && path === '/__concourse/session') return json({ subject: principal.subject, displayName: principal.displayName,
-      canReviewFeedback: site.maintainers?.includes(principal.email) ?? false });
+      canReviewFeedback: site.maintainers?.includes(principal.email) ?? false, ...capabilities(site, principal), site: site.id });
+    if (path.startsWith('/__concourse/admin')) return await admin(request, deps, site, principal, path);
     if (request.method === 'GET') return await read(request, deps, site, principal, path);
     return await write(request, deps, site, principal, path);
   } catch (error) {
-    if (error instanceof Problem) return json({ error: error.message }, error.status);
+    if (error instanceof Problem) return problem(error);
     return json({ error: 'Service unavailable' }, 503);
   }
 }
 
 function login(url: URL, site: Site): Response {
   const target = new URL(url.searchParams.get('return') ?? '/', url.origin);
-  if (target.origin !== site.origin || !target.pathname.startsWith('/') || target.pathname.startsWith('/__concourse/')) throw new Problem(400, 'Invalid return');
+  if (target.origin !== site.origin || !target.pathname.startsWith('/') || (target.pathname.startsWith('/__concourse/') && target.pathname !== '/__concourse/admin/')) throw new Problem(400, 'Invalid return');
   return new Response(null, { status: 303, headers: { location: target.href,
     'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
 }
@@ -65,3 +71,19 @@ async function write(request: Request, deps: Dependencies, site: Site, principal
   const result = await deps.store.add(site.id, principal, input);
   return json({ comment: result.comment }, result.replay ? 200 : 201);
 }
+
+async function admin(request: Request, deps: Dependencies, site: Site, actor: Principal, path: string): Promise<Response> {
+  admit(site, actor);
+  if (path === '/__concourse/admin' && request.method === 'GET') return new Response(null, { status: 303, headers: { location: '/__concourse/admin/', 'cache-control': 'no-store' } });
+  if (!path.startsWith('/__concourse/admin/')) throw new Problem(404, 'Unknown route');
+  const relative = path.slice('/__concourse/admin/'.length);
+  if (request.method === 'GET' && (!relative || relative.startsWith('assets/'))) {
+    if (new URL(request.url).search) throw new Problem(400, 'Unknown parameter');
+    return assetResponse(relative || 'index.html', deps.adminAssets ?? builtAssets());
+  }
+  if (!deps.management) throw new Problem(503, 'Workspace unavailable');
+  const result = await management(request, site, actor, deps.management);
+  return json(result.data, result.status);
+}
+
+function problem(error: Problem): Response { return json({ error: error.message, code: error.code, current: error.current }, error.status); }
