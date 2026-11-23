@@ -1,0 +1,28 @@
+name: Build Concourse microsite
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'src/browser/**', 'src/shared/**', 'scripts/build.ts', 'scripts/site.ts', 'package.json', 'bun.lock', 'THIRD-PARTY-NOTICES.txt', '.github/workflows/site.yml']
+  pull_request:
+    paths: ['site/**', 'src/browser/**', 'src/shared/**', 'scripts/build.ts', 'scripts/site.ts', 'package.json', 'bun.lock', 'THIRD-PARTY-NOTICES.txt', '.github/workflows/site.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - run: bun run build:site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: concourse-microsite
+          path: dist/site/
+          if-no-files-found: error

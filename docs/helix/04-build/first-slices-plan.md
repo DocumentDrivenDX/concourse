@@ -65,3 +65,50 @@ cloud gates. The actual Worker bundle passes local D1 execution; real HELIX
 rendering passes desktop/mobile posting and reload. Existing playbooks production
 and custom-host admission challenges pass six generic probes. No cloud plan,
 apply, remote migration or authenticated production journey was performed.
+
+## Microsite and feedback implementation — 2026-11-23
+
+Owner authorized building the public Concourse microsite with live comments and
+feedback, initially Synaptiq Google. CONTRACT-002 governs the new private workflow.
+
+1. Add separate feedback storage/validation and authenticated submission plus
+   explicit-maintainer inbox. Test replay/conflict, authorization, cross-site
+   isolation, bounded pagination and identity suppression against native SQLite
+   and the production Worker on local D1.
+2. Build reusable native feedback UI with accessible disclosure/form, context,
+   receipt, private inbox and principal-scoped draft/uncertain-outcome recovery.
+   Test real Chromium keyboard, anonymous, retry/reload and inbox journeys.
+3. Publish authored documentation sources in `site/` with deterministic revisions
+   and the actual shared assets. Test actual rendered pages, comments and feedback
+   on desktop/mobile. Leave the unrelated untracked Novirhyza draft untouched.
+4. Add a pinned build/artifact workflow and explicit release inventory. Prepare
+   consuming infrastructure using the existing small module, public static pages
+   and protected API. Do not merge infrastructure PRs or claim live acceptance
+   before its normal human-reviewed apply and a real Google session succeed.
+5. Review changes, run gates, open reviewable PRs and record remaining deployment
+   operations. New installation outputs/credentials remain outside public source.
+
+No arbitrary deadline or spending ceiling was supplied. Verification stays scoped
+to native feedback, comments and the actual site build; no broad refactor or
+external issue/message integration is included.
+
+### Microsite implementation evidence
+
+Implemented native private feedback, explicit-maintainer inbox, opt-in reusable
+widget, a three-page static Concourse site, output hashes and a read-only CI site
+artifact. The unrelated Novirhyza draft remains untouched. Native API tests cover
+feedback privacy/isolation/bounds/replay; local production Worker/D1 execution
+and actual Chromium comment/widget journeys passed, including lost-response
+recovery and keyboard/mobile use. Source metadata and internal links are gated
+in `tests/site.test.ts`. No live Google/Cloudflare acceptance is inferred.
+
+An independent HELIX guide reader evaluated all three authored pages against
+the cited source, ran the site build and an isolated Hugo install/check, and
+recorded body-bound review metadata. This was performed by hand without adding
+a documentor installation or changing the flow marker. Scope lacks a governed
+architecture visualization model; the site uses no generated architecture views.
+
+Infrastructure PR #378 in Synaptiq has a state-backed Cloudflare plan of five
+additions, zero changes, zero deletions. New host deployment, database migration,
+maintainer assignment and actual Google/comment/feedback verification remain
+pending the human-reviewed apply and explicit operational authorization.

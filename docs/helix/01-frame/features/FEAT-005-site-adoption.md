@@ -71,3 +71,10 @@ Package naming, framework, transport and same-origin versus cross-origin design 
 ## Out of Scope
 
 Replacing site generators, building a general CMS or claiming framework compatibility without tests.
+
+## Concourse demonstration
+
+EMB-04: Concourse's own microsite must explain installation and deployment,
+expose actual inline discussion and the reusable feedback widget, and distinguish
+public documentation from signed-in collaboration. Synaptiq Google is the first
+login audience. A local mock must never be presented as a live demonstration.

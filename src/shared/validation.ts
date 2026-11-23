@@ -1,4 +1,4 @@
-import { Problem, type CommentInput } from './types.ts';
+import { Problem, type CommentInput, type FeedbackInput, type FeedbackKind } from './types.ts';
 export function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Problem(400, 'Invalid object');
   return value as Record<string, unknown>;
@@ -39,4 +39,14 @@ export async function readJson(request: Request): Promise<unknown> {
   for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
   try { return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
   catch { throw new Problem(400, 'Invalid JSON'); }
+}
+
+export function feedbackInput(value: unknown): FeedbackInput {
+  const v = object(value);
+  if (Object.keys(v).sort().join(',') !== 'anchor,body,kind,quote,requestId,resource,revision') throw new Problem(400, 'Invalid feedback fields');
+  if (!['question', 'problem', 'suggestion'].includes(String(v.kind))) throw new Problem(400, 'Invalid feedback kind');
+  const { kind: _, ...fields } = v;
+  const common = commentInput({ ...fields, anchor: v.anchor || 'page' });
+  return { resource: common.resource, revision: common.revision, anchor: text(v.anchor, 512, true),
+    quote: common.quote, body: common.body, requestId: common.requestId, kind: v.kind as FeedbackKind };
 }

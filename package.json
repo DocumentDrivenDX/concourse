@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "test": "bun test tests",
     "check:boundaries": "bun scripts/check-boundaries.ts",
-    "check": "bun run typecheck && bun run lint && bun run check:boundaries && bun run build && bun test tests",
+    "check": "bun run typecheck && bun run lint && bun run check:boundaries && bun run build && bun scripts/site.ts && bun test tests",
     "dev": "wrangler dev --local",
     "test:browser": "bun scripts/browser-test.ts",
     "lint": "biome lint src",
@@ -16,7 +16,9 @@
     "build:browser": "bun scripts/build.ts --browser-only",
     "test:hugo-browser": "bun scripts/hugo-browser.ts",
     "cloudflare:prepare": "bun scripts/cloudflare/release.ts prepare",
-    "cloudflare:deploy": "bun scripts/cloudflare/release.ts deploy"
+    "cloudflare:deploy": "bun scripts/cloudflare/release.ts deploy",
+    "build:site": "bun run build:browser && bun scripts/site.ts",
+    "test:site": "bun scripts/site-browser.ts"
   },
   "dependencies": {
     "jose": "6.2.14"

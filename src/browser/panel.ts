@@ -67,9 +67,9 @@ export async function sectionPanel(heading: HTMLElement, context: Context, clien
     status.textContent = list.children.length ? `${list.children.length} comments shown.` : 'No comments yet. Start the discussion.';
   }
   async function load(append = false): Promise<void> {
-    if (busy || !signedIn) return; busy = true; status.textContent = 'Loading comments…';
+    if (busy || !signedIn) return; busy = true; send.disabled = true; status.textContent = 'Loading comments…';
     try { show(await client.list(anchor, append ? next ?? undefined : undefined), append); loaded = true; }
-    catch (error) { failure(error); } finally { busy = false; }
+    catch (error) { failure(error); } finally { busy = false; send.disabled = false; }
   }
   details.ontoggle = () => { if (details.open && !loaded) void load(); };
   refresh.onclick = () => { void load(); }; older.onclick = () => { void load(true); };

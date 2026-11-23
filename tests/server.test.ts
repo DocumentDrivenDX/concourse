@@ -78,7 +78,7 @@ test('login redirect stays on site and rejects protocol-relative/open redirects'
   f.db.close();
 });
 test('config has no empty allow-all fallback and identity is not merged by email', async () => {
-  expect(sites(JSON.stringify([site]))).toEqual([site]);
+  expect(sites(JSON.stringify([site]))).toEqual([{ ...site, maintainers: [] }]);
   for (const value of ['[]', JSON.stringify([{ ...site, emails: [], domains: [] }]), JSON.stringify([site, site]), JSON.stringify([{ ...site, extra: true }])]) expect(() => sites(value)).toThrow();
   const a = await authenticate(new Request(site.origin, { headers: { 'Cf-Access-Jwt-Assertion': await token() } }), site, resolver);
   const b = await authenticate(new Request(site.origin, { headers: { 'Cf-Access-Jwt-Assertion': await token({ sub: 'another-person' }) } }), site, resolver);

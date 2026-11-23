@@ -1,11 +1,13 @@
 import { Problem, type Principal, type Site } from '../shared/types.ts';
-import { commentInput, integer, readJson, text } from '../shared/validation.ts';
+import { commentInput, integer, readJson, text, feedbackInput } from '../shared/validation.ts';
 import { type CommentStore } from './store.ts';
+import type { FeedbackStore } from './feedback.ts';
 import { siteFor } from './config.ts';
 export interface Dependencies {
   sites: Site[];
   authenticate(request: Request, site: Site): Promise<Principal>;
   store: CommentStore;
+  feedback: FeedbackStore;
 }
 function json(data: unknown, status = 200): Response { return Response.json(data, { status, headers: {
   'cache-control': 'no-store', 'x-content-type-options': 'nosniff', 'referrer-policy': 'same-origin' } }); }
@@ -19,16 +21,10 @@ export async function handle(request: Request, deps: Dependencies): Promise<Resp
     if (request.method === 'GET' && path === '/__concourse/login') {
       return login(url, site);
     }
-    if (request.method === 'GET' && path === '/__concourse/session') return json({ subject: principal.subject, displayName: principal.displayName });
-    if (path !== '/__concourse/comments') throw new Problem(404, 'Unknown route');
-    if (request.method === 'GET') {
-      return await list(url, deps.store, site);
-    }
-    if (request.headers.get('origin') !== site.origin) throw new Problem(403, 'Origin denied');
-    if (request.headers.get('sec-fetch-site') === 'cross-site') throw new Problem(403, 'Origin denied');
-    const input = commentInput(await readJson(request));
-    const result = await deps.store.add(site.id, principal, input);
-    return json({ comment: result.comment }, result.replay ? 200 : 201);
+    if (request.method === 'GET' && path === '/__concourse/session') return json({ subject: principal.subject, displayName: principal.displayName,
+      canReviewFeedback: site.maintainers?.includes(principal.email) ?? false });
+    if (request.method === 'GET') return await read(request, deps, site, principal, path);
+    return await write(request, deps, site, principal, path);
   } catch (error) {
     if (error instanceof Problem) return json({ error: error.message }, error.status);
     return json({ error: 'Service unavailable' }, 503);
@@ -46,4 +42,26 @@ async function list(url: URL, store: CommentStore, site: Site): Promise<Response
   const cursor = url.searchParams.get('before');
   const before = cursor === null ? undefined : integer(Number(cursor));
   return json(await store.list(site.id, resource, anchor, before));
+}
+
+async function read(request: Request, deps: Dependencies, site: Site, principal: Principal, path: string): Promise<Response> {
+  const url = new URL(request.url);
+  if (path === '/__concourse/comments') return list(url, deps.store, site);
+  if (path !== '/__concourse/feedback') throw new Problem(404, 'Unknown route');
+  if (!site.maintainers?.includes(principal.email)) throw new Problem(403, 'Maintainer access required');
+  const before = url.searchParams.get('before');
+  return json(await deps.feedback.list(site.id, before === null ? undefined : integer(Number(before))));
+}
+
+async function write(request: Request, deps: Dependencies, site: Site, principal: Principal, path: string): Promise<Response> {
+  if (path !== '/__concourse/comments' && path !== '/__concourse/feedback') throw new Problem(404, 'Unknown route');
+  if (request.headers.get('origin') !== site.origin) throw new Problem(403, 'Origin denied');
+  if (request.headers.get('sec-fetch-site') === 'cross-site') throw new Problem(403, 'Origin denied');
+  if (path === '/__concourse/feedback') {
+    const result = await deps.feedback.add(site.id, principal, feedbackInput(await readJson(request)));
+    return json({ receipt: result.receipt }, result.replay ? 200 : 201);
+  }
+  const input = commentInput(await readJson(request));
+  const result = await deps.store.add(site.id, principal, input);
+  return json({ comment: result.comment }, result.replay ? 200 : 201);
 }

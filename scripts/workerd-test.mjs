@@ -2,7 +2,7 @@ import { Miniflare } from 'miniflare';
 import { generateKeyPair, exportJWK, SignJWT } from 'jose';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
-const site = { id: 'guide', origin: 'https://guide.example', issuer: 'https://team.cloudflareaccess.com', audience: 'guide-aud', domains: ['example.org'], emails: [] };
+const site = { id: 'guide', origin: 'https://guide.example', issuer: 'https://team.cloudflareaccess.com', audience: 'guide-aud', domains: ['example.org'], emails: [], maintainers: ['mira@example.org'] };
 const pair = await generateKeyPair('RS256'), jwk = await exportJWK(pair.publicKey);
 jwk.kid = 'test'; jwk.alg = 'RS256';
 const identity = await new SignJWT({ email: 'mira@example.org', name: 'Mira' })
@@ -18,7 +18,7 @@ const mf = new Miniflare({ modules: true, scriptPath: 'dist/worker.js', compatib
 });
 try {
   const db = await mf.getD1Database('DB');
-  const sql = await readFile('migrations/0001_comments.sql', 'utf8');
+  const sql = await readFile('migrations/0001_comments.sql', 'utf8') + await readFile('migrations/0002_feedback.sql', 'utf8');
   for (const statement of sql.split(';').filter(s => s.trim())) await db.prepare(statement).run();
   const post = () => mf.dispatchFetch(site.origin + '/__concourse/comments', { method: 'POST',
     headers: { 'content-type': 'application/json', origin: site.origin, 'Cf-Access-Jwt-Assertion': identity }, body: JSON.stringify(payload) });
@@ -27,6 +27,13 @@ try {
   const read = await mf.dispatchFetch(site.origin + '/__concourse/comments?resource=reference%2Fkeys.md&anchor=equality', { headers: { 'Cf-Access-Jwt-Assertion': identity } });
   const page = await read.json(); if (page.comments.length !== 1) throw new Error('D1 replay duplicate');
   const denied = await mf.dispatchFetch(site.origin + '/__concourse/session'); if (denied.status !== 401) throw new Error('Unsigned access'); await denied.text();
+  const feedback = { ...payload, kind: 'suggestion' };
+  const sendFeedback = () => mf.dispatchFetch(site.origin + '/__concourse/feedback', { method: 'POST',
+    headers: { 'content-type': 'application/json', origin: site.origin, 'Cf-Access-Jwt-Assertion': identity }, body: JSON.stringify(feedback) });
+  const accepted = await sendFeedback(); if (accepted.status !== 201) throw new Error(`Feedback ${accepted.status}: ${await accepted.text()}`); await accepted.text();
+  const repeated = await sendFeedback(); if (repeated.status !== 200) throw new Error('Feedback replay failed'); await repeated.text();
+  const inbox = await mf.dispatchFetch(site.origin + '/__concourse/feedback', { headers: { 'Cf-Access-Jwt-Assertion': identity } });
+  if ((await inbox.json()).feedback.length !== 1) throw new Error('Feedback D1 duplicate');
   await mkdir('test-results', { recursive: true });
   await writeFile('test-results/workerd.json', JSON.stringify({ passed: true, node: process.version, compatibilityDate: '2026-08-06',
     scope: 'Unmodified production Worker on local workerd/D1; outbound JWKS supplies signed synthetic identity; no cloud/provider login acceptance',

@@ -137,11 +137,23 @@ candidates only; no P2 functional requirement is selected.
 
 ### Subsystem: Site Adoption
 
+Concourse must publish its own public documentation microsite, demonstrating
+its actual comments and feedback components with Synaptiq Google login.
+
+
 - **FR-7 (P0)** — Owners must integrate the same collaboration component into two
   independently built sites using declared configuration and resource identity,
   without a fork of authentication/discussion code. UI must expose loading,
   denial, empty, validation, conflict and failure states while preserving signed
   publication bytes and host-page routing/style behavior.
+
+### Subsystem: Feedback
+
+- **FR-9 (P0)** — Signed-in readers must submit private questions, problems or
+  suggestions with publication/resource/revision context from a reusable widget.
+  Explicitly configured maintainers must read their site's bounded feedback
+  inbox. Other readers must not read feedback. Drafts and uncertain submissions
+  must recover without duplication. No external issue or message is sent.
 
 ### Subsystem: Structured Actions
 
