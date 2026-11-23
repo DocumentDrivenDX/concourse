@@ -74,3 +74,14 @@ is the selected implementation approach. Private feedback and a maintainer
 inbox implement the proposed feedback workflow; no automatic external issue
 creation or notification is authorized. The existing untracked `microsite/`
 Novirhyza landing-page draft is unrelated and must remain untouched.
+
+## Maintainer workspace — 2026-11-23
+
+The owner requested design of a proper backend with search, sort, filters and a
+simple dashboard. This authorizes design, not implementation or a deployment.
+The owner explicitly selected feedback and discussions together in the first
+workspace. A maintainer web application over the existing collaboration API is
+the design approach. New/In review/Closed feedback, Open/Resolved discussions,
+and one installation per workspace are recommendations for review, not additional
+settled owner decisions. Discussion permissions and cross-installation
+aggregation must not acquire feedback permissions implicitly.

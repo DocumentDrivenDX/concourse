@@ -155,6 +155,16 @@ its actual comments and feedback components with Synaptiq Google login.
   inbox. Other readers must not read feedback. Drafts and uncertain submissions
   must recover without duplication. No external issue or message is sent.
 
+### Subsystem: Maintainer Workspace
+
+- **FR-10 (P0)** — Authorized maintainers must find and review feedback and discussion threads through
+  a dedicated workspace with server-side text search, explicit sorting, filters,
+  bounded result navigation and a simple dashboard. Counts must cover matching
+  records, not only the loaded page. Private content and aggregate counts must
+  remain scoped to the authorized installation. The proposed initial workflows add attributable feedback triage and thread
+  resolution without changing submitted text. Counts and actions remain separately
+  authorized for the two queues.
+
 ### Subsystem: Structured Actions
 
 - **FR-8 (P1)** — A reviewer must discover and invoke one supported structured

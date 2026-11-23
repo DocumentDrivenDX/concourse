@@ -160,3 +160,31 @@ The proposed hostname is `concourse.synaptiq.tools`, backed by a separate public
 Pages project with Access only on `/__concourse`. Hosting/access changes belong
 in the consuming infrastructure repository and require its reviewed apply path.
 A separate Worker/database avoids migrating HELIX merely to publish this site.
+
+## Proposed maintainer workspace
+
+FEAT-008 and SD-008 propose a dedicated feedback and discussion workspace under the existing
+protected `/__concourse/admin/` route. CONTRACT-003 owns search, whole-result
+counts, bounded detail/history, feedback triage and discussion resolution. This is a design extension,
+not implemented behavior; the widget and existing submission/comment APIs remain.
+
+Planned module additions retain the existing ownership boundaries:
+
+| Module | Owned surface | Allowed dependencies | Forbidden dependencies |
+|---|---|---|---|
+| src/admin | Overview, feedback/discussion queues and detail | shared, client, DOM | Server, D1, CLI and embedded widget internals |
+| src/client | Common same-origin browser transport extracted from browser/api.ts | shared, browser fetch/location | Server, D1 and widget/admin views |
+| src/server/management | Application policy and repository ports | shared; injected verified site/principal | Browser, transport claims parsing and provider SQL |
+| src/server/management/d1 | Fixed query builders, FTS, thread membership and guarded review events | management public ports, D1 adapter | DOM, frontend and arbitrary caller SQL |
+
+worker.ts remains the production composition root and serves a build-embedded
+admin asset manifest only after authorization. The boundary check must distinguish
+the application core from its D1 adapter, and include negative imports for the
+new modules. The current check does not yet enforce these proposed additions.
+
+Keep feedback, comments and review events canonical; thread membership, review
+heads and FTS are rebuildable projections. Explicit moderator addresses grant
+discussion management independently from feedback maintainer addresses. Indexing/export recovery requires its own qualification.
+Future Batten plugins implement host identity and repository ports without
+claiming that the Cloudflare SQL profile works on Databricks. No central cross-site
+credentials, new identity groups or external search service are selected.
