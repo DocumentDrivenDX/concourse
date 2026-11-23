@@ -20,7 +20,9 @@ const nav = (name: string) => page.getByRole('navigation', { name: 'Workspace' }
 try {
   await page.goto(url); await page.getByText('32 feedback items', { exact: true }).waitFor();
   await page.getByText('6 threads · 7 contributions', { exact: true }).waitFor();
-  await nav('Feedback').click(); await page.getByText('32 matching feedback items', { exact: false }).waitFor();
+  await page.locator('.dashboard-section').filter({ has: page.getByRole('heading', { name: 'Feedback', exact: true }) }).locator('.card').first().click();
+  await expect(page.getByLabel('Status', { exact: true })).toHaveValue('new');
+  await page.getByText('32 matching feedback items', { exact: false }).waitFor();
   await page.getByRole('button', { name: 'Next page', exact: true }).click(); await expect(page.locator('.queue button')).toHaveCount(7);
   await page.getByRole('button', { name: 'Previous page', exact: true }).click(); await expect(page.locator('.queue button')).toHaveCount(25);
   await page.getByLabel('Search', { exact: true }).fill('clarification'); await page.getByLabel('Type', { exact: true }).selectOption('problem');
