@@ -15,7 +15,7 @@ for (const name of ['index.html', 'guide.html', 'hosting.html']) {
 await copyFile('site/site.css', join(output, 'site.css'));
 for (const name of ['concourse.js', 'concourse.css', 'THIRD-PARTY-NOTICES.txt']) await copyFile(join('dist', name), join(output, 'concourse', name));
 const files: Record<string, string> = {};
-for (const name of await readdir(output, { recursive: true })) {
+for (const name of (await readdir(output, { recursive: true })).sort()) {
   const file = Bun.file(join(output, name));
   if ((await file.stat()).isFile()) files[name] = new Bun.CryptoHasher('sha256').update(await file.bytes()).digest('hex');
 }
