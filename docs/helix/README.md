@@ -16,6 +16,7 @@ The [vision](00-discover/product-vision.md) governs the [PRD](01-frame/prd.md).
 | Resource identity | [FEAT-003](01-frame/features/FEAT-003-resource-identity.md) | US-004 | FR-4 |
 | Discussion | [FEAT-004](01-frame/features/FEAT-004-discussion.md) | US-005, US-006 | FR-5, FR-6 |
 | Site adoption | [FEAT-005](01-frame/features/FEAT-005-site-adoption.md) | US-007 | FR-7 |
+| Private feedback | [FEAT-007](01-frame/features/FEAT-007-private-feedback.md) | US-009 | FR-9 |
 | Structured actions | [FEAT-006](01-frame/features/FEAT-006-structured-actions.md) | US-008 | FR-8 |
 
 Stories live individually under `01-frame/user-stories/`. Acceptance criteria are

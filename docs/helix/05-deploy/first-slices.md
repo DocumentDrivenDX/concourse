@@ -162,3 +162,47 @@ explain why upload, activation and database recovery are distinct operations.
 Batten/Databricks Apps is a separate required host profile: collaboration backend
 plugin plus a volume-backed static publication plugin behind the Apps proxy.
 This Cloudflare package does not claim to implement or qualify that profile.
+
+## Concourse's own public microsite
+
+Sources live in `site/`; `bun run build:site` writes `dist/site/` with the actual
+comments and feedback component. The build workflow uploads `concourse-microsite`
+as a reviewable artifact and has no deployment credential. `build.json` records
+source revisions and output file hashes. Neither build nor CI applies storage
+migrations or provisions infrastructure.
+
+The proposed installation is `concourse.synaptiq.tools`, Pages project `concourse`,
+Worker `concourse-site`, site ID `concourse`. The consuming infrastructure change
+uses the existing module and Google Workspace provider, with `synaptiq.ai`
+membership and `access_path = "/__concourse"`. The static pages are public;
+collaboration remains protected. A separate D1 database avoids migrating HELIX
+for this adoption. Infrastructure human review/merge and its normal apply must
+finish before filling the new site's profile. Do not create resources ad hoc.
+
+Keep the actual installation output and maintainer addresses outside this public
+repository. Populate the existing profile example from that output; optionally
+add `maintainers` to the site entry as exact verified email addresses. Both normal
+site membership and this additional assignment are required to read feedback.
+Absent assignments, members can submit feedback but nobody can read the inbox.
+Have the installation owner approve the maintainer assignment before admitting
+private feedback. No commenter receives maintainer access by default.
+
+For a new empty database, review/apply both `0001_comments.sql` and
+`0002_feedback.sql`. Prepare/deploy the reviewed Worker through the existing
+digest process. Protect `/__concourse` on custom, production and wildcard preview
+origins, and configure the Worker route only on the custom hostname. Publish the
+reviewed static artifact to the already provisioned project:
+
+```sh
+node node_modules/wrangler/bin/wrangler.js pages deploy dist/site \
+  --project-name concourse --branch main
+```
+
+Verify public documentation/assets return 200, and signed-out session, comments
+and feedback paths challenge for login on every origin. Previews must not provide
+an alternate API. Verify real Synaptiq Google login on the custom hostname, then
+comment/reload/reply, feedback receipt, member inbox denial and assigned-maintainer
+inbox access. Record deployment/version IDs and artifact hashes locally without
+publishing installation details or reader data. Local browser fixtures do not
+qualify these deployed journeys. Retention/export/restore and abuse policy remain
+installation decisions; this slice does not introduce moderation or notifications.

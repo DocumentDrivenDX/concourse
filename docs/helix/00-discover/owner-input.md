@@ -64,3 +64,13 @@ authorize applying infrastructure, reading credentials or running migrations.
 The owner selected `MIT OR Apache-2.0`, matching the UMF family. This authorizes
 source and package distribution under either license. Production deployment,
 secret access and migrations remain separately authorized operations.
+
+## Concourse microsite and feedback — 2026-11-23
+
+The owner authorized building Concourse's own microsite with live section
+comments and a feedback widget, using Synaptiq Google login initially. Broader
+access remains later work. Public documentation with protected collaboration
+is the selected implementation approach. Private feedback and a maintainer
+inbox implement the proposed feedback workflow; no automatic external issue
+creation or notification is authorized. The existing untracked `microsite/`
+Novirhyza landing-page draft is unrelated and must remain untouched.

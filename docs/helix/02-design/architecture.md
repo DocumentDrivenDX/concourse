@@ -140,3 +140,23 @@ the actual pinned Wrangler dry-run verifies vendor compatibility. The release
 manifest is local distribution-integrity metadata, with no UMF identity, action
 or transaction semantics. The earlier UMF inspection supplies no appropriate
 replacement for this provider-specific configuration.
+
+## Microsite and private feedback
+
+The public `site/` publication is built without a framework and uses the same
+versioned browser distribution as HELIX. A deterministic builder derives resource
+revisions from authored page bytes; the comment and feedback UI stays outside
+authored content. The deployable output is `dist/site/`.
+
+Feedback uses a separate append-only D1 table and native HTTP surface governed
+by CONTRACT-002. Server configuration optionally supplies exact maintainer
+emails; omitted means no inbox permission. Verified site membership is still
+required for both submitters and maintainers. Every list is site-scoped. No
+client role, author or target site grants permission. The feedback widget and
+maintainer inbox share the existing same-origin client and login entrypoint;
+no external issue/message integration or UMF executor is introduced.
+
+The proposed hostname is `concourse.synaptiq.tools`, backed by a separate public
+Pages project with Access only on `/__concourse`. Hosting/access changes belong
+in the consuming infrastructure repository and require its reviewed apply path.
+A separate Worker/database avoids migrating HELIX merely to publish this site.

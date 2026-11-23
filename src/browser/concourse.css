@@ -9,3 +9,8 @@ label { display:block; font-weight:600; }
 textarea { display:block; box-sizing:border-box; width:100%; margin:.5rem 0; font:inherit; padding:.5rem; border:1px solid #888; border-radius:.3rem; }
 button, a { min-height:28px; font:inherit; padding:.3rem .6rem; margin:.25rem .4rem .25rem 0; }
 button { cursor:pointer; } [hidden] { display:none !important; }
+
+:host([data-concourse-feedback]) { position:fixed; inset:auto 1rem 1rem auto; z-index:100; width:min(25rem, calc(100vw - 2rem)); font:16px/1.5 system-ui,sans-serif; }
+:host([data-concourse-feedback]) > details { box-shadow:0 6px 30px #0003; max-height:80vh; overflow:auto; }
+fieldset { border:0; margin:0; padding:0; min-width:0; }
+legend { font-weight:700; } select { display:block; width:100%; padding:.45rem; font:inherit; margin:.35rem 0 .65rem; }

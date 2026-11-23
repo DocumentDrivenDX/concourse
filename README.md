@@ -23,6 +23,21 @@ planning assumptions. The first slice selects Cloudflare Worker/D1 storage and a
 component; Azure remains an architectural alternative. See CONTRACT-001 for the
 qualified native comment protocol, which is independent of UMF action execution.
 
+## Microsite and private feedback
+
+The authored site lives in `site/`. Run `bun run build:site` to produce
+`dist/site/`, including the actual shared comments/feedback component and source
+revision hashes. The site-build workflow produces a reviewable artifact; it has
+no cloud deployment credential. The proposed deployment is public documentation
+at `concourse.synaptiq.tools` with Synaptiq Google protecting `/__concourse/*`.
+Infrastructure review and real sign-in verification precede a live-site claim.
+
+Enable the feedback widget with `data-feedback="true"` or Hugo's
+`params.concourse.feedback: true`. Site members may submit private feedback;
+only verified emails in the server's optional `maintainers` list can read its
+inbox. Omitted means nobody has inbox access. Both membership and maintainer
+checks are required. See [CONTRACT-002](docs/helix/02-design/contracts/CONTRACT-002-feedback.md).
+
 ## Development
 
 Use Bun 1.4.3 for development. Node 22+ runs the supported Miniflare harness.
@@ -33,6 +48,7 @@ bun run check
 bun run test:workerd
 bunx playwright install chromium
 bun run test:browser
+bun run test:site
 ```
 
 `bun run build:browser` produces only the embeddable distribution and does not

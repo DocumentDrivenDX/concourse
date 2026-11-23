@@ -1,6 +1,7 @@
 import { Database } from 'bun:sqlite';
 import { generateKeyPair, exportJWK, createLocalJWKSet, SignJWT } from 'jose';
 import { CommentStore, type Connection } from '../src/server/store.ts';
+import { FeedbackStore } from '../src/server/feedback.ts';
 import { authenticate } from '../src/server/auth.ts';
 import { handle } from '../src/server/http.ts';
 import type { Site, CommentInput } from '../src/shared/types.ts';
@@ -30,12 +31,13 @@ export function input(overrides: Partial<CommentInput> = {}): CommentInput {
 }
 export async function fixture() {
   const data = database(); data.db.exec(await Bun.file('migrations/0001_comments.sql').text());
-  const configured = [site, { ...site, id: 'second', origin: 'https://second.example', audience: 'second-aud' }];
+  data.db.exec(await Bun.file('migrations/0002_feedback.sql').text());
+  const configured = [{ ...site, maintainers: ['owner@example.org'] }, { ...site, id: 'second', origin: 'https://second.example', audience: 'second-aud', maintainers: ['other@example.org'] }];
   const call = async (path: string, init: RequestInit = {}, identity: string | null | undefined = undefined, origin = site.origin) => {
     if (identity === undefined) identity = await token();
     const headers = new Headers(init.headers); if (identity) headers.set('Cf-Access-Jwt-Assertion', identity);
     return handle(new Request(origin + '/__concourse/' + path, { ...init, headers }), {
-      sites: configured, store: data.store, authenticate: (r, s) => authenticate(r, s, resolver),
+      sites: configured, store: data.store, feedback: new FeedbackStore(data.connection), authenticate: (r, s) => authenticate(r, s, resolver),
     });
   };
   const post = (value: unknown, identity?: string | null, origin = site.origin) => call('comments', {
