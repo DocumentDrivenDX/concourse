@@ -18,7 +18,8 @@
     "cloudflare:prepare": "bun scripts/cloudflare/release.ts prepare",
     "cloudflare:deploy": "bun scripts/cloudflare/release.ts deploy",
     "build:site": "bun run build:browser && bun scripts/site.ts",
-    "test:site": "bun scripts/site-browser.ts"
+    "test:site": "bun scripts/site-browser.ts",
+    "test:management-browser": "bun scripts/management-browser.ts"
   },
   "dependencies": {
     "jose": "6.2.14"

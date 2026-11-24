@@ -112,3 +112,56 @@ Infrastructure PR #378 in Synaptiq has a state-backed Cloudflare plan of five
 additions, zero changes, zero deletions. New host deployment, database migration,
 maintainer assignment and actual Google/comment/feedback verification remain
 pending the human-reviewed apply and explicit operational authorization.
+
+## Maintainer workspace implementation — 2026-11-23
+
+Owner authorized implementation on PR #10. FEAT-008, SD-008 and CONTRACT-003
+govern feedback and discussions together. Preserve the unrelated `microsite/` draft.
+
+| Slice | Dependencies | Validation |
+|---|---|---|
+| Adopt admin/client/application/D1 boundaries | Existing module map | Boundary checker plus forbidden-import controls |
+| Add rebuildable FTS/ancestry/heads and canonical review events | Boundary adoption | Migration/backfill, native query/replay/race/rollback/rebuild tests |
+| Protect shell/assets and management HTTP ports | Repository ports | Signed identities, role matrix, origin/host/input/cursor denials |
+| Build overview, both queues/detail and reader badges | HTTP contract | Chromium search/filter/sort/paging, reply matches, triage/resolve, recovery/mobile |
+| Package and document operations | All preceding gates | Existing check, local production Worker/D1, browser suites and diff review |
+
+No production migration, cloud deployment or installation-role change is authorized
+by this implementation request. Local synthetic migration and restore tests are
+part of implementation verification. Recovery must export canonical tables only
+and rebuild projections in an isolated database before any production operation.
+
+Execution estimate is unknown: no comparable measured usage is available. Use
+one implementation and verification pass followed by review of changed behavior;
+the runtime provides no enforced per-task token cap or monetary metering. Stop
+for a concrete authority conflict or required production operation, preserving
+remaining work here. No additional tracker is selected for this repository.
+
+Completion requires both queues, separately authorized full-result search/counts,
+immutable originals/history, replay-safe writes and reply-aware resolution through
+the running application, with legacy APIs preserved. Test failures or unimplemented
+required behavior remain unfinished work; local acceptance never implies live Google
+or remote D1 qualification. Diagnostic payloads stay outside source commits.
+
+### Maintainer workspace verification and review
+
+Implemented application ports, separately protected shell/assets/APIs, complete
+FTS queries/counts, canonical review events, ancestry/head projections, feedback
+triage, thread resolution/reopening, and a responsive native DOM workspace.
+`src/client` owns shared transport; widget code depends on it through the existing
+export bridge. Module checks reject admin-to-server, client-to-widget and
+application-to-D1 imports, with allowed-import controls.
+
+| Proof | Implemented acceptance |
+|---|---|
+| `tests/management.test.ts` | MW-01/02/03/04/05: complete counts, query/keysets, Unicode, role matrix, origin/isolation, replay/conflict, both reply races, backfill, bounded history/replies and canonical restore/rebuild |
+| `scripts/management-workerd.mjs` via `test:workerd` | Production Worker/D1: signed identity, FTS, guarded events, replay, trigger rollback and separate-binding restore/rebuild; 10,000 records per family |
+| `scripts/management-browser.ts` | MW-01/02/03/04/06: dashboard drill-down, both queues, sort/filter/paging, reply-only search, review response loss/reload/replay, explicit conflict reconciliation, safe text, mobile/back/keyboard, capability omission and expiry |
+| Existing inline/site browser journeys | Existing comments, private feedback, principal-scoped drafts, response recovery and actual site integration remain functional |
+
+Curated verification covers local synthetic data only. Run receipts/screenshots
+stay in ignored `test-results/`; raw diagnostics are excluded from the PR.
+Review checked trusted site/capability boundaries, fixed SQL and cursor binding,
+per-command replay identity, contribution guards, asset packaging and stale UI
+response handling. Remote deployment/export, role assignment and Google acceptance
+remain operator-authorized rollout work, not unfinished implementation claims.

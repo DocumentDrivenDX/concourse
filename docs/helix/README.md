@@ -17,6 +17,7 @@ The [vision](00-discover/product-vision.md) governs the [PRD](01-frame/prd.md).
 | Discussion | [FEAT-004](01-frame/features/FEAT-004-discussion.md) | US-005, US-006 | FR-5, FR-6 |
 | Site adoption | [FEAT-005](01-frame/features/FEAT-005-site-adoption.md) | US-007 | FR-7 |
 | Private feedback | [FEAT-007](01-frame/features/FEAT-007-private-feedback.md) | US-009 | FR-9 |
+| Maintainer workspace | [FEAT-008](01-frame/features/FEAT-008-maintainer-workspace.md) | FEAT-008 acceptance corpus | FR-10 |
 | Structured actions | [FEAT-006](01-frame/features/FEAT-006-structured-actions.md) | US-008 | FR-8 |
 
 Stories live individually under `01-frame/user-stories/`. Acceptance criteria are
@@ -41,3 +42,9 @@ The first slice provides append-only comments/replies and retry recovery.
 Editing, moderation, public multi-provider qualification, structured actions and
 production retention/export/restore remain later scoped work. Session revocation
 is bounded by signed-token expiry and configured membership rollout.
+
+[Maintainer workspace design](02-design/solution-designs/SD-008-maintainer-workspace.md)
+defines dedicated feedback/discussion search, review and dashboard views.
+[CONTRACT-003](02-design/contracts/CONTRACT-003-maintainer-workspace.md) owns the
+query and triage API. Implementation and local verification are recorded in the
+[build plan](04-build/first-slices-plan.md); production rollout is separately authorized.

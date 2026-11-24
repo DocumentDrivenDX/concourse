@@ -1,14 +1,18 @@
 import { resolve, relative } from 'node:path';
 export async function violations(root: string): Promise<string[]> {
   const errors: string[] = [];
-  const allowed: Record<string, string[]> = { shared: ['shared'], server: ['server', 'shared'], browser: ['browser', 'shared'], cli: ['cli', 'shared'] };
+  const allowed: Record<string, string[]> = { shared: ['shared'], server: ['server', 'shared'], browser: ['browser', 'shared', 'client'], client: ['client', 'shared'], admin: ['admin', 'client', 'shared'], cli: ['cli', 'shared'] };
   for await (const file of new Bun.Glob('src/**/*.ts').scan(root)) {
     const source = await Bun.file(resolve(root, file)).text(), owner = file.split('/')[1] ?? '';
     if (source.split('\n').length > 500) errors.push(`${file}: source exceeds 500 lines`);
-    for (const match of source.matchAll(/(?:from\s*|import\s*\()['"]([^'"]+)['"]/g)) {
+    for (const match of source.matchAll(/(?:from\s*|import\s*\(|import\s*)['"]([^'"]+)['"]/g)) {
       const name = match[1] ?? '';
-      if ((owner === 'shared' || owner === 'browser') && /^(node:|bun|jose)/.test(name)) errors.push(`${file}: forbidden runtime dependency ${name}`);
+      if ((owner === 'shared' || ['browser', 'admin', 'client'].includes(owner)) && /^(node:|bun|jose|@cloudflare\/)/.test(name)) errors.push(`${file}: forbidden runtime dependency ${name}`);
+
       if (name.startsWith('.')) {
+        const target = relative(root, resolve(root, file, '..', name));
+        if (file.startsWith('src/server/management/') && !file.startsWith('src/server/management/d1/') && !target.startsWith('src/server/management/') && !target.startsWith('src/shared/')) errors.push(`${file}: application must depend on ports/shared only`);
+        if (file.startsWith('src/server/management/') && !file.startsWith('src/server/management/d1/') && target.startsWith('src/server/management/d1/')) errors.push(`${file}: application cannot import D1 adapter`);
         const imported = relative(resolve(root, 'src'), resolve(root, file, '..', name)).split('/')[0] ?? '';
         if (!allowed[owner]?.includes(imported)) errors.push(`${file}: forbidden ${imported} dependency`);
       }

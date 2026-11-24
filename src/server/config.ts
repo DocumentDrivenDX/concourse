@@ -6,7 +6,7 @@ export function sites(raw: string): Site[] {
   const ids = new Set<string>(); const origins = new Set<string>();
   return value.map(v => {
     const x = object(v);
-    if (Object.keys(x).filter(k => k !== 'maintainers').sort().join(',') !== 'audience,domains,emails,id,issuer,origin') throw new Error('Invalid site keys');
+    if (Object.keys(x).filter(k => k !== 'maintainers' && k !== 'moderators').sort().join(',') !== 'audience,domains,emails,id,issuer,origin') throw new Error('Invalid site keys');
     const id = text(x.id, 128), origin = text(x.origin, 512), issuer = text(x.issuer, 512);
     const u = new URL(origin), i = new URL(issuer);
     if (u.protocol !== 'https:' || u.origin !== origin || i.protocol !== 'https:' || i.origin !== issuer || !i.hostname.endsWith('.cloudflareaccess.com')) throw new Error('Invalid origins');
@@ -15,8 +15,8 @@ export function sites(raw: string): Site[] {
     const domains = list(x.domains), emails = list(x.emails);
     if (!domains.length && !emails.length) throw new Error('Empty membership');
     if (domains.some(d => !/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/.test(d)) || emails.some(e => !/^[^@\s]+@[^@\s]+$/.test(e))) throw new Error('Invalid membership');
-    const maintainers = maintainerList(x.maintainers);
-    return { id, origin, issuer, maintainers, audience: text(x.audience, 512), domains, emails };
+    const maintainers = maintainerList(x.maintainers), moderators = maintainerList(x.moderators);
+    return { id, origin, issuer, maintainers, moderators, audience: text(x.audience, 512), domains, emails };
   });
 }
 function list(value: unknown): string[] {

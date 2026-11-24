@@ -3,9 +3,9 @@
 <!-- helix:source scripts/cloudflare/release.ts sha256:3f0eb665f960aae9 -->
 <!-- helix:source scripts/site.ts sha256:a6e472337aec1fd2 -->
 <!-- helix:source src/server/auth.ts sha256:aaa662818da2594b -->
-<!-- helix:source src/server/http.ts sha256:47780e60dfc4ab0b -->
-<!-- helix:source docs/helix/02-design/architecture.md sha256:c8d15f673918799c -->
-<!-- helix:source docs/helix/05-deploy/first-slices.md sha256:56c5af5f6a30c81d -->
+<!-- helix:source src/server/http.ts sha256:c55b1dc064e63c83 -->
+<!-- helix:source docs/helix/02-design/architecture.md sha256:82f1daaefbec8f5b -->
+<!-- helix:source docs/helix/05-deploy/first-slices.md sha256:94aa3faa8e9def8e -->
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hosting — Concourse</title><link rel="stylesheet" href="/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav"><a class="brand" href="/"><span class="mark" aria-hidden="true"></span>concourse</a><nav aria-label="Main navigation"><a href="/guide.html">Get started</a><a href="/hosting.html" aria-current="page">Hosting</a><a href="https://github.com/DocumentDrivenDX/concourse">GitHub ↗</a></nav></div></header><main id="main" class="wrap prose"><article class="content"><p class="eyebrow">Hosting and operations</p><h1>Static content.<br>A serverless conversation.</h1><p>Concourse separates the publication, access policy, and collaboration runtime. Keep shared infrastructure in the estate that already owns it.</p><h2 id="cloudflare">Cloudflare: the first implementation.</h2><p>Pages serves static content. Access provides managed sign-in. A Worker validates identity and membership for each API request; D1 stores append-only comments and private feedback. Worker alternate public origins are disabled.</p><p>The small Terraform module manages Pages, its domain, DNS, Access policy, and database lifetime. Wrangler manages Worker code, bindings, and exact API routes. These tools have separate ownership, so application releases do not recreate infrastructure.</p><h2 id="release">Prepare, inspect, deploy.</h2><pre><code>bun run check
 bun run test:workerd
 bun run build:site

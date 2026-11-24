@@ -79,6 +79,7 @@ export function mountFeedback(marker: HTMLElement, context: Context, client: Cli
       status.textContent = 'Sign in again, then retry your retained draft.'; login.hidden = false; form.hidden = true;
     }
   }
+  if (session?.canManageFeedback || session?.canManageDiscussions) { const workspace = el('a', 'Open maintainer workspace'); workspace.href = '/__concourse/admin/'; details.append(workspace); }
   if (session?.canReviewFeedback) mountInbox(details, client);
 }
 function mountInbox(parent: HTMLElement, client: Client): void {
