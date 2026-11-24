@@ -1,6 +1,6 @@
 {
   "name": "@novirhyza/concourse",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -19,7 +19,8 @@
     "cloudflare:deploy": "bun scripts/cloudflare/release.ts deploy",
     "build:site": "bun run build:browser && bun scripts/site.ts",
     "test:site": "bun scripts/site-browser.ts",
-    "test:management-browser": "bun scripts/management-browser.ts"
+    "test:management-browser": "bun scripts/management-browser.ts",
+    "screenshots:site": "bun scripts/site-screenshots.ts"
   },
   "dependencies": {
     "jose": "6.2.14"
