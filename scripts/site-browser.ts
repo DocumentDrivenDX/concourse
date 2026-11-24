@@ -29,6 +29,10 @@ const url = `http://127.0.0.1:${server.port}`;
 try {
   await page.goto(url);
   const widget = page.locator('[data-concourse-feedback]');
+  await page.locator('img[src="/images/admin-overview.jpg"]').scrollIntoViewIfNeeded();
+  await page.locator('img[src="/images/admin-overview.jpg"]').evaluate((e: HTMLImageElement) => e.decode());
+  if (!await page.locator('img[src="/images/admin-overview.jpg"]').evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth === 1440)) throw new Error('Overview screenshot missing');
+  if (!await page.getByRole('link', { name: 'Open maintainer workspace', exact: true }).getAttribute('href').then(v => v === '/__concourse/admin/')) throw new Error('Workspace entry link wrong');
   await widget.locator('summary').first().click();
   await widget.getByRole('link', { name: 'Sign in to send feedback' }).waitFor();
   if (await widget.getByRole('button', { name: 'Submit feedback' }).isVisible()) throw new Error('Anonymous submission form');
@@ -76,6 +80,12 @@ try {
   await page.screenshot({ path: 'test-results/concourse-site-mobile.png' });
   for (const path of ['/guide.html', '/hosting.html']) {
     await page.goto(url + path); await page.locator('[data-concourse-feedback]').waitFor();
+    if (path === '/guide.html') for (const image of await page.locator('.workspace-shot img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate((e: HTMLImageElement) => e.decode());
+      if (!await image.evaluate((e: HTMLImageElement) => e.naturalWidth === 1440 && e.naturalHeight === Number(e.getAttribute('height')))) throw new Error('Guide screenshot dimensions or loading failed');
+    }
+    if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) throw new Error(`Documentation overflow ${path}`);
     if (await page.locator('main [data-concourse-panel]').count() < 3) throw new Error(`Missing integration ${path}`);
   }
   if (errors.length) throw new Error(errors.join('\n'));

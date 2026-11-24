@@ -13,6 +13,8 @@ for (const name of ['index.html', 'guide.html', 'hosting.html']) {
   hashes[name] = revision;
 }
 await copyFile('site/site.css', join(output, 'site.css'));
+await mkdir(join(output, 'images'), { recursive: true });
+for (const name of await readdir('site/images')) if (/\.(png|jpg|webp)$/.test(name)) await copyFile(join('site/images', name), join(output, 'images', name));
 for (const name of ['concourse.js', 'concourse.css', 'THIRD-PARTY-NOTICES.txt']) await copyFile(join('dist', name), join(output, 'concourse', name));
 const files: Record<string, string> = {};
 for (const name of (await readdir(output, { recursive: true })).sort()) {

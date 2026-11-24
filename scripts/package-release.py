@@ -30,7 +30,7 @@ for name in ["dist", "migrations", "operations", "integrations", "deploy", "infr
         shutil.copy2(source, stage / name)
 files = {str(f.relative_to(stage)): hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(stage.rglob("*")) if f.is_file()}
 receipt = {"tag": tag, "sourceCommit": commit, "workflowRun": os.environ.get("GITHUB_RUN_ID"),
-           "license": "MIT OR Apache-2.0", "scope": "Local qualification preview; no live login, deployment, production data, Batten host or broad action-profile qualification", "files": files}
+           "license": "MIT OR Apache-2.0", "scope": "Native Cloudflare comments, feedback and maintainer workspace; production rollout requires per-installation approval and verification. Batten hosting and UMF action execution are not qualified.", "files": files}
 (output / "release-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
 with tarfile.open(output / f"concourse-{version}.tar.gz", "w:gz") as archive:
     archive.add(stage, arcname=stage.name)

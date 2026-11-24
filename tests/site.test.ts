@@ -16,6 +16,7 @@ test('microsite links, revision identity, asset inventory and independently revi
       expect(hash(value.split(/\r?\n/).map(l => l.trimEnd()).filter((_, i, a) => i < a.length - 1 || a[i] !== '').join('\n')).slice(0,16)).toBe(digest!);
     }
     for (const [, link] of built.matchAll(/(?:href|src)="(\/[^"#]*)(?:#[^"]*)?"/g)) {
+      if (link === '/__concourse/admin/') { expect(await Bun.file('dist/site/__concourse/admin/index.html').exists()).toBe(false); continue; }
       expect(await Bun.file(`dist/site${link === '/' ? '/index.html' : link}`).exists()).toBe(true);
     }
   }

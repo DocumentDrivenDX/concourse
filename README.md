@@ -8,9 +8,11 @@ comments and, later, structured interactions described by UMF.
 Start with [the project index](docs/helix/README.md). The first implementation provides generic protected-publishing tooling and
 a serverless inline section-comment service.
 
-Status: 0.1.x. Tested in CI: Worker API (unit + Miniflare), browser widget and Hugo
-integration (Playwright, Linux Chromium), Terraform validation. Not tested in CI: a live Cloudflare
-deployment. Not built: UMF structured actions; Concourse is not integrated with the UMF stack.
+Version 0.2.0 adds private feedback and a maintainer workspace with search,
+filters, sorting, feedback triage and discussion resolution. The native
+Cloudflare installation has been verified with Synaptiq Google sign-in. CI covers
+native API, local Worker/D1, browser and infrastructure checks; CI does not deploy
+or authenticate to production. Batten hosting and UMF action execution are not built.
 
 Concourse builds on the Entropy Exchange playbooks pattern: static publication
 with managed login and access control. The proposed split keeps reusable hosting
@@ -28,15 +30,21 @@ qualified native comment protocol, which is independent of UMF action execution.
 The authored site lives in `site/`. Run `bun run build:site` to produce
 `dist/site/`, including the actual shared comments/feedback component and source
 revision hashes. The site-build workflow produces a reviewable artifact; it has
-no cloud deployment credential. The proposed deployment is public documentation
-at `concourse.synaptiq.tools` with Synaptiq Google protecting `/__concourse/*`.
-Infrastructure review and real sign-in verification precede a live-site claim.
+no cloud deployment credential. The public [Concourse microsite](https://concourse.synaptiq.tools/) uses Synaptiq
+Google access for `/__concourse/*`. Its [workspace guide](https://concourse.synaptiq.tools/guide#admin-ui)
+includes screenshots captured from the actual application with synthetic data.
 
 Enable the feedback widget with `data-feedback="true"` or Hugo's
 `params.concourse.feedback: true`. Site members may submit private feedback;
 only verified emails in the server's optional `maintainers` list can read its
 inbox. Omitted means nobody has inbox access. Both membership and maintainer
 checks are required. See [CONTRACT-002](docs/helix/02-design/contracts/CONTRACT-002-feedback.md).
+
+The [maintainer workspace](https://concourse.synaptiq.tools/__concourse/admin/)
+requires site membership plus a reviewer role. `maintainers` grants private feedback
+access; the independent `moderators` list grants discussion management. Both are
+exact-email installation settings. Apply pending migrations through 0003 before
+upgrading the Worker. See [release notes](docs/helix/05-deploy/release-0.2.0.md).
 
 ## Development
 
@@ -49,6 +57,7 @@ bun run test:workerd
 bunx playwright install chromium
 bun run test:browser
 bun run test:site
+bun run test:management-browser
 ```
 
 `bun run build:browser` produces only the embeddable distribution and does not
